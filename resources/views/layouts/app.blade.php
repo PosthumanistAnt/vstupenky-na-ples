@@ -6,10 +6,13 @@
     <title>Vstupenky na ples</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    @livewireStyles
 </head>
 <body>
-    <div>
+    <div class="container h-screen w-screen ">
         {{ $slot }}
     </div>
+    
+    @livewireScripts
 </body>
 </html>
