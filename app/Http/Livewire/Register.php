@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+
+class Register extends Component
+{
+    public $name;
+    public $email;
+    public $password;
+    public $password_confirmation;
+
+    protected $rules = [
+        'name' => 'required|string',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:8|confirmed',
+    ];
+    
+    public function updated($propertyName)
+    {
+        if(!($propertyName === "password_confirmation")) {
+            $this->validateOnly($propertyName);
+        } else {
+            $this->validateOnly('password');
+        }
+    }
+
+    public function register()
+    {
+        $this->validate();
+        $newUser = User::create([
+            "name" => $this->name,
+            "email" => $this->email,
+            "password" => Hash::make($this->password)
+        ]);
+        Auth::login($newUser);
+        return redirect()->route('seatpicker');
+    }
+    public function login()
+    {
+        return redirect("login");
+    }
+    public function render()
+    {
+        return view('livewire.register');
+    }
+}
