@@ -35,7 +35,7 @@ class Register extends Component
             "password" => Hash::make($this->password)
         ]);
         Auth::login($newUser);
-        return redirect()->route('seatpicker');
+        return redirect('/');
     }
     public function login()
     {
