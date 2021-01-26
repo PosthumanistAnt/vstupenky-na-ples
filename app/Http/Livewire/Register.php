@@ -22,11 +22,7 @@ class Register extends Component
     
     public function updated($propertyName)
     {
-        if(!($propertyName === "password_confirmation")) {
-            $this->validateOnly($propertyName);
-        } else {
-            $this->validateOnly('password');
-        }
+        $this->validateOnly($propertyName, $this->rules);
     }
 
     public function register()
