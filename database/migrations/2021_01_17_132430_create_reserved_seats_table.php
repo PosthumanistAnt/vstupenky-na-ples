@@ -15,8 +15,8 @@ class CreateReservedSeatsTable extends Migration
     {
         Schema::create('reserved_seats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->unsignedBigInteger('seat_id');
             $table->foreign('seat_id')->references('id')->on('seats');
             $table->timestamps();

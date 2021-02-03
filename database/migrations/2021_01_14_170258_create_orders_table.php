@@ -20,7 +20,6 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('state_id');
             $table->foreign('state_id')->references('id')->on('order_states');
-            $table->json('seats');
             $table->timestamps();
         });
     }
