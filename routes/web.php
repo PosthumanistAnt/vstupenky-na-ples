@@ -19,6 +19,7 @@ use App\Http\Livewire\SeatPicker;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::middleware(['guest'])->group(function() {
     Route::get('/login', Login::class)->name('login');
     Route::get('/register', Register::class)->name('register');
@@ -26,6 +27,12 @@ Route::middleware(['guest'])->group(function() {
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/', SeatPicker::class);
+});
+
+Route::middleware(['admin'])->group(function() {
+    Lean::routes([
+        'home' => '/admin/p/home',
+    ]);
 });
 
 
@@ -36,6 +43,4 @@ Route::get('/logout', function(Request $request) {
     return redirect('/login');
 });
 
-Lean::routes([
-    'home' => '/admin/p/home',
-]);
+
