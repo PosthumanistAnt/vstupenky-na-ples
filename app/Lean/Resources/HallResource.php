@@ -5,6 +5,7 @@ namespace App\Lean\Resources;
 use Lean\Fields\ID;
 use Lean\Fields\Pikaday;
 use Lean\Fields\Text;
+use Lean\Fields\Number;
 use Lean\LeanResource;
 
 class HallResource extends LeanResource
@@ -13,11 +14,12 @@ class HallResource extends LeanResource
 
     public static array $searchable = [
         'id',
-        'name',
+        'location',
+        'description',
     ];
 
-    public static string $title = 'name';
-    public static string $icon = 'heroicon-o-document';
+    public static string $title = 'id';
+    public static string $icon = 'heroicon-o-office-building';
     public static int $resultsPerPage;
 
     public static array $lang = [
@@ -31,10 +33,12 @@ class HallResource extends LeanResource
         return [
             ID::make('id'),
 
-            Text::make('name')->label(__('Name')),
+            Text::make('location')->label(__('Name')),
+            Number::make('table_columns')->label(__('Table columns')),
+            Number::make('table_rows')->label(__('Table rows')),
+            Text::make('description')->label(__('Description')),
 
-            Pikaday::make('updated_at')->display('show', 'edit'),
-            Pikaday::make('created_at')->disabled()->display('show'),
+            
         ];
     }
 

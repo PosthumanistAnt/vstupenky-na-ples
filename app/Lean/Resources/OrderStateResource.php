@@ -8,22 +8,21 @@ use Lean\Fields\Text;
 use Lean\Fields\Relations\BelongsTo;
 use Lean\LeanResource;
 
-class MessageResource extends LeanResource
+class OrderStateResource extends LeanResource
 {
-    public static string $model = \App\Models\Message::class;
+    public static string $model = \App\Models\OrderState::class;
 
     public static array $searchable = [
         'id',
-        'title',
     ];
 
-    public static string $title = 'title';
-    public static string $icon = 'heroicon-o-annotation';
+    public static string $title = 'id';
+    public static string $icon = 'heroicon-o-ticket';
     public static int $resultsPerPage;
 
     public static array $lang = [
-        // 'create.submit' => 'Create Message',
-        // 'notifications.created' => 'Message created!',
+        // 'create.submit' => 'Create OrderState',
+        // 'notifications.created' => 'OrderState created!',
         // ...
     ];
 
@@ -32,9 +31,7 @@ class MessageResource extends LeanResource
         return [
             ID::make('id'),
 
-            Text::make('title')->label(__('Title')),
-            Text::make('message')->label(__('Message')),
-            BelongsTo::make('messageType')->parent(MessageTypeResource::class)->label(__('Message type')),
+            Text::make('state')->label(__('State')),
 
             Pikaday::make('updated_at')->display('show', 'edit'),
             Pikaday::make('created_at')->disabled()->display('show'),
@@ -43,11 +40,11 @@ class MessageResource extends LeanResource
 
     public static function label(): string
     {
-        return __('Message');
+        return __('OrderState');
     }
 
     public static function pluralLabel(): string
     {
-        return __('Messages');
+        return __('OrderStates');
     }
 }

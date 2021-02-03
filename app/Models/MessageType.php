@@ -21,6 +21,6 @@ class MessageType extends Model
     ];
     
     public function messages(){
-        $this->hasMany(App\Models\Message::class);
+        return $this->hasMany(Message::class);
     }
 }

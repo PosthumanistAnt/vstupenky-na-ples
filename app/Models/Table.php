@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Table extends Model
 {
     use HasFactory;
+
+    public function hall(){
+        return $this->belongsTo(Hall::class);
+    }
 }

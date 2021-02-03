@@ -5,6 +5,7 @@ namespace App\Lean\Resources;
 use Lean\Fields\Email;
 use Lean\Fields\ID;
 use Lean\Fields\Password;
+use Lean\Fields\Boolean;
 use Lean\Fields\Pikaday;
 use Lean\Fields\Text;
 use Lean\LeanResource;
@@ -17,6 +18,7 @@ class UserResource extends LeanResource
         'id',
         'name',
         'email',
+        'is_admin',
     ];
 
     public static string $title = 'name';
@@ -37,6 +39,7 @@ class UserResource extends LeanResource
             Text::make('name')->label(__('Name')),
             Email::make('email')->label(__('Email')),
             Password::make('password')->label(__('Password'))->confirmed(),
+            Boolean::make('is_admin')->label(__('Admin')),
 
             Pikaday::make('updated_at')->display('show', 'edit'),
             Pikaday::make('created_at')->disabled()->display('show'),

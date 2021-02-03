@@ -8,22 +8,21 @@ use Lean\Fields\Text;
 use Lean\Fields\Relations\BelongsTo;
 use Lean\LeanResource;
 
-class MessageResource extends LeanResource
+class ReservedSeatResource extends LeanResource
 {
-    public static string $model = \App\Models\Message::class;
+    public static string $model = \App\Models\ReservedSeat::class;
 
     public static array $searchable = [
         'id',
-        'title',
     ];
 
-    public static string $title = 'title';
-    public static string $icon = 'heroicon-o-annotation';
+    public static string $title = 'id';
+    public static string $icon = 'heroicon-o-ticket';
     public static int $resultsPerPage;
 
     public static array $lang = [
-        // 'create.submit' => 'Create Message',
-        // 'notifications.created' => 'Message created!',
+        // 'create.submit' => 'Create ReservedSeat',
+        // 'notifications.created' => 'ReservedSeat created!',
         // ...
     ];
 
@@ -32,10 +31,9 @@ class MessageResource extends LeanResource
         return [
             ID::make('id'),
 
-            Text::make('title')->label(__('Title')),
-            Text::make('message')->label(__('Message')),
-            BelongsTo::make('messageType')->parent(MessageTypeResource::class)->label(__('Message type')),
-
+            BelongsTo::make('user_id')->parent(UserResource::class)->label(__('User')),
+            BelongsTo::make('seat_id')->parent(SeatResource::class)->label(__('Seat')),
+            
             Pikaday::make('updated_at')->display('show', 'edit'),
             Pikaday::make('created_at')->disabled()->display('show'),
         ];
@@ -43,11 +41,11 @@ class MessageResource extends LeanResource
 
     public static function label(): string
     {
-        return __('Message');
+        return __('ReservedSeat');
     }
 
     public static function pluralLabel(): string
     {
-        return __('Messages');
+        return __('ReservedSeats');
     }
 }

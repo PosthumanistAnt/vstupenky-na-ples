@@ -5,6 +5,7 @@ namespace App\Lean\Resources;
 use Lean\Fields\ID;
 use Lean\Fields\Pikaday;
 use Lean\Fields\Text;
+use Lean\Fields\Number;
 use Lean\LeanResource;
 
 class SeatTypeResource extends LeanResource
@@ -13,11 +14,13 @@ class SeatTypeResource extends LeanResource
 
     public static array $searchable = [
         'id',
-        'name',
+        'type',
+        'description',
+        'price',
     ];
 
-    public static string $title = 'name';
-    public static string $icon = 'heroicon-o-document';
+    public static string $title = 'id';
+    public static string $icon = 'heroicon-o-ticket';
     public static int $resultsPerPage;
 
     public static array $lang = [
@@ -31,10 +34,9 @@ class SeatTypeResource extends LeanResource
         return [
             ID::make('id'),
 
-            Text::make('name')->label(__('Name')),
-
-            Pikaday::make('updated_at')->display('show', 'edit'),
-            Pikaday::make('created_at')->disabled()->display('show'),
+            Text::make('type')->label(__('Type')),
+            Text::make('description')->label(__('Description')),
+            Number::make('price')->label(__('Price'))
         ];
     }
 

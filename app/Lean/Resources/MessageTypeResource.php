@@ -17,7 +17,7 @@ class MessageTypeResource extends LeanResource
     ];
 
     public static string $title = 'type';
-    public static string $icon = 'heroicon-o-document';
+    public static string $icon = 'heroicon-o-annotation';
     public static int $resultsPerPage = 10;
 
     public static array $lang = [
@@ -33,7 +33,7 @@ class MessageTypeResource extends LeanResource
             Text::make('type')->label(__('Type')),
             HasMany::make('messages')->of(MessageResource::class),
         ];
-    }
+    } 
 
     public static function label(): string
     {

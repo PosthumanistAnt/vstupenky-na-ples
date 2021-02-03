@@ -13,11 +13,11 @@ class SeatResource extends LeanResource
 
     public static array $searchable = [
         'id',
-        'name',
+        'description',
     ];
 
     public static string $title = 'name';
-    public static string $icon = 'heroicon-o-document';
+    public static string $icon = 'heroicon-o-ticket';
     public static int $resultsPerPage;
 
     public static array $lang = [
@@ -31,10 +31,10 @@ class SeatResource extends LeanResource
         return [
             ID::make('id'),
 
-            Text::make('name')->label(__('Name')),
-
-            Pikaday::make('updated_at')->display('show', 'edit'),
-            Pikaday::make('created_at')->disabled()->display('show'),
+            Text::make('description')->label(__('Description')),
+            BelongsTo::make('table')->parent(TableResource::class)->label(__('Table')),
+            BelongsTo::make('seatType')->parent(SeatTypeResource::class)->label(__('Seat type')),
+            
         ];
     }
 
