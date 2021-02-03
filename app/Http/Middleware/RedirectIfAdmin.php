@@ -23,6 +23,6 @@ class RedirectIfAdmin
                 return $next($request);
             }
         }
-        return redirect('/nejsiAdmin');
+        return abort(403);
     }
 }
