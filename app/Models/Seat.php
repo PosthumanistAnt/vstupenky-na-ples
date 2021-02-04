@@ -9,6 +9,8 @@ class Seat extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    
     public function table(){
         return $this->belongsTo(Table::class);
     }
