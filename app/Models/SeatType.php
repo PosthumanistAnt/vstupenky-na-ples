@@ -9,6 +9,8 @@ class SeatType extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    
     public function seats(){
         $this->hasMany(Seat::class);
     }
