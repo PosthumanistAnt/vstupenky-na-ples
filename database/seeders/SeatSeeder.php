@@ -25,7 +25,7 @@ class SeatSeeder extends Seeder
                 ->create();
 
            Seat::factory()
-                ->count(5)
+                ->count(70)
                 ->for($seatType)
                 ->for($table)
                 ->create();
