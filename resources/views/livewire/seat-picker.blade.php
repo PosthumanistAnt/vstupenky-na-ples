@@ -10,21 +10,25 @@
         <canvas height="1000" width="1000" id="canvas" class="w-screen h-screen"></canvas>
     </div>
 
-    <script>
+    <div class="w-full h-full bg-red-300">
 
+    </div>
+    
+    <script>        
         var canvas = new fabric.Canvas('canvas');
         var rects =  [];
-        for (let i = 10; i < 78; i++) {
-            // create a rectangle
+  
+        @foreach ($seats as $seat)
+            console.log('dalsi');
             rects.push(
                 new fabric.Rect({
-                left: i%8 * 30,
-                top: parseInt(i/8) * 30,
-                fill: '#' + (i-10) + i + (i+20),
+                left: 1 * 30,
+                top: 1 * 30,
                 width: 20,
                 height: 20,
-            }));     
-        }
+                color: "RED",
+            }));   
+        @endforeach
 
         for (let index = 0; index < rects.length; index++) {
             canvas.add(rects[index]);   

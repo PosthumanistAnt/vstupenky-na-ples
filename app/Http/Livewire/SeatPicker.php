@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Seat;
 use Livewire\Component;
 
 class SeatPicker extends Component
@@ -17,6 +18,8 @@ class SeatPicker extends Component
     }
     public function render()
     {
-        return view('livewire.seat-picker');
+        return view('livewire.seat-picker', [
+            'seats' => Seat::all(),
+        ]);
     }
 }
