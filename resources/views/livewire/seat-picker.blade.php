@@ -1,4 +1,4 @@
-<div class="h-full w-screen bg-gray-900 text-gray-300">
+<div class="h-full w-screen bg-gray-900 text-gray-200">
     <div class="w-full xl:flex xl:justify-between">
         <x-buttons.secondary-button text='Odhlásit' livewireFunction='logout' />
         @admin

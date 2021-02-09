@@ -1,4 +1,4 @@
-<div class="h-screen w-screen bg-gray-900 text-gray-300">
+<div class="h-screen w-screen bg-gray-900 text-gray-200">
   <form class="h-full w-full" wire:submit.prevent>
     <div class="h-2/6 ">
       <x-input for='email' type='email' placeholder='Email' height='1/2' />
