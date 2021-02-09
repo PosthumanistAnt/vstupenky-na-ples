@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class Register extends Component
 {
@@ -28,13 +29,18 @@ class Register extends Component
     public function register()
     {
         $this->validate();
+
         $newUser = User::create([
             "name" => $this->name,
             "email" => $this->email,
             "password" => Hash::make($this->password)
         ]);
+
         Auth::login($newUser);
-        return redirect('/');
+
+        event(new Registered($newUser));
+
+        return redirect()->route('verification.notice');
     }
     public function login()
     {
@@ -42,6 +48,7 @@ class Register extends Component
     }
     public function render()
     {
-        return view('livewire.register');
+        return view('livewire.register')
+        ->layout('components.layouts.app');
     }
 }

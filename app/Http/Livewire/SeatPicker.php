@@ -20,6 +20,8 @@ class SeatPicker extends Component
     {
         return view('livewire.seat-picker', [
             'seats' => Seat::all(),
-        ]);
+        ])        
+        ->layout('components.layouts.app');
+
     }
 }
