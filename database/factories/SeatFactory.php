@@ -23,6 +23,7 @@ class SeatFactory extends Factory
     {
         return [
             'description' => $this->faker->sentence(2),
+            'table_position' => $this->faker->numberBetween(0,4),
         ];
     }
 }
