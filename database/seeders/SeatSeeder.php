@@ -20,16 +20,17 @@ class SeatSeeder extends Seeder
         $hall = Hall::factory()->create();
         for ($i=0; $i < 2; $i++) { 
             $seatType = SeatType::factory()->create();
-            $table = Table::factory()
-                ->for($hall)
-                ->create();
+            for ($i=0; $i < 4; $i++) { 
+                $table = Table::factory()
+                    ->for($hall)
+                    ->create();
 
-           Seat::factory()
-                ->count(70)
-                ->for($seatType)
-                ->for($table)
-                ->create();
-
+            Seat::factory()
+                    ->count(5)
+                    ->for($seatType)
+                    ->for($table)
+                    ->create();
+            }
         }
        
     }
