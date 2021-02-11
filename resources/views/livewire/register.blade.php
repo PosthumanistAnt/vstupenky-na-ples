@@ -1,4 +1,4 @@
-<div class="h-screen w-screen bg-gray-900 text-gray-200">
+<div class="h-screen w-screen">
     <form class="h-full w-full" wire:submit.prevent>
         <div class="h-2/3 ">
             <x-input for="name" height="1/4" type="text" placeholder="Jméno" />
