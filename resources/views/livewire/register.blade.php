@@ -7,8 +7,8 @@
             <x-input for="password_confirmation" height="1/4" type="password" placeholder="Potvrzení hesla" />
         </div>
         <div class="fixed inset-x-0 bottom-1 text-center xl:flex xl:justify-between xl:items-baseline ">
-            <x-buttons.primary-button text='Registrovat' livewireFunction='register' />
-            <x-buttons.secondary-button text='Přihlášení' livewireFunction='login' />
-          </div>
+            <button class="btn btn-primary" wire:click="register"> Registrace </button>
+            <button class="btn btn-secondary" wire:click="login"> Přihlásit </button>
+        </div>
     </form>
 </div>

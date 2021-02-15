@@ -1,4 +1,17 @@
-/* ./resources/css/app.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .btn {
+      @apply m-4 p-4 tracking-widest font-extrabold bg-gray-700 hover:bg-gray-800 bg-opacity-50;
+    }
+
+    .btn-primary {
+      @apply text-5xl xl:text-8xl;
+    }
+
+    .btn-secondary {
+      @apply text-4xl xl:text-7xl;
+    }
+  }

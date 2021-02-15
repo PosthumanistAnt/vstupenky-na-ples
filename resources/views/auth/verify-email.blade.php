@@ -1,7 +1,7 @@
 <x-layouts.app>
     <div class="h-screen">
         <div class="fixed top-12">
-            <a href="{{ route('logout') }}" class="m-4 p-4 text-4xl xl:text-7xl tracking-widest font-extrabold hover:text-gray-400 bg-gray-700 hover:bg-gray-800"> Odhlásit </a>
+            <a href="{{ route('logout') }}" class="btn btn-primary"> Odhlásit </a>
         </div>
 
         <div class="fixed top-1/4 inset-x-0">
@@ -23,7 +23,7 @@
         <div class="fixed bottom-12 inset-x-0">
             <form action="{{ route('verification.send') }}" class="flex items-center justify-center" method="POST">
                 @csrf 
-                <button type="submit" class="text-2xl hover:text-gray-400 p-6 bg-gray-700 hover:bg-gray-800 tracking-wide"> 
+                <button type="submit" class="btn btn-secondary"> 
                     Znovu odeslat email
                 </button>
             </form>

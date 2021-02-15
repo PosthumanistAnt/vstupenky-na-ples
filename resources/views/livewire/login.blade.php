@@ -12,8 +12,8 @@
     </div>
 
     <div class="fixed inset-x-0 bottom-1 text-center xl:flex xl:justify-between xl:items-baseline">
-      <x-buttons.primary-button text='Přihlásit' livewireFunction='login' />
-      <x-buttons.secondary-button text='Registrace' livewireFunction='register' />
+      <button class="btn btn-primary" wire:click="login"> Přihlásit </button>
+      <button class="btn btn-secondary" wire:click="register"> Registrace </button>
     </div>
   </form>
 </div>
