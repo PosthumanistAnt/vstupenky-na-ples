@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Seat;
+use App\Models\Table;
 use Livewire\Component;
 
 class SeatPicker extends Component
 {
+
     public function admin()
     {
         return redirect('admin');
@@ -19,9 +20,8 @@ class SeatPicker extends Component
     public function render()
     {
         return view('livewire.seat-picker', [
-            'seats' => Seat::all(),
-        ])        
+            'tables' => Table::with('seats.seatType')->get()
+        ])
         ->layout('components.layouts.app');
-
     }
 }
