@@ -17,8 +17,8 @@ class CreateTablesTable extends Migration
             $table->id();
             $table->string('description')->nullable();
             $table->integer('num_seats');
-            $table->integer('hall_column');
-            $table->integer('hall_row');
+            $table->integer('position_x');
+            $table->integer('position_y');
             $table->unsignedBigInteger('hall_id');
             $table->foreign('hall_id')->references('id')->on('halls');
             $table->timestamps();

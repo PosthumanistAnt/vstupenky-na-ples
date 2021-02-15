@@ -24,8 +24,8 @@ class TableFactory extends Factory
         return [
             'description' => $this->faker->sentence(5),
             'num_seats' => $this->faker->numberBetween(4, 6),
-            'hall_column' => $this->faker->numberBetween(0, 5),
-            'hall_row' => $this->faker->numberBetween(0, 5),
+            'position_x' => $this->faker->numberBetween(0, 500),
+            'position_y' => $this->faker->numberBetween(0, 500),
         ];
     }
 }
