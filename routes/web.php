@@ -42,7 +42,7 @@ Route::get('/logout', function(Request $request) {
     $request->session()->invalidate();
     $request->session()->regenerateToken();
     return redirect('/register');
-});
+})->name('logout');
 
 Route::get('/send-mail', function () {
     Mail::to('newuser@example.com')->send(new JustTesting()); 
@@ -64,5 +64,5 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
-    return back()->with('message', 'Email byl znovu odeslán');
+    return back()->with('message', 'Email byl odeslán!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
