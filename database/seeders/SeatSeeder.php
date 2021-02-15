@@ -20,7 +20,7 @@ class SeatSeeder extends Seeder
         $hall = Hall::factory()->create();
         for ($i=0; $i < 2; $i++) { 
             $seatType = SeatType::factory()->create();
-            for ($i=0; $i < 4; $i++) { 
+            for ($j=0; $j < 4; $j++) { 
                 $table = Table::factory()
                     ->for($hall)
                     ->create();
