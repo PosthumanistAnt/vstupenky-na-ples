@@ -29,42 +29,65 @@
             height: document.getElementById('canvas-wrapper').clientHeight,
         });
 
-        var tables =  [];
         var seats =  [];
-        var tableRadius = 30;
-        var tableDistance = 10;
+        var seatWidth = 20
+
+        var tables =  [];
+        var tableWidth = 50;
 
         @foreach ($tables as $table)
             @foreach ($table->seats as $seat)
                 seats.push(
                     new fabric.Rect({
-                    left: {{ $table->position_x }} - 20,
-                    top: {{ $table->position_y }} - 20,
-                    width: 20,
-                    height: 20,
-                    fill: "blue",
-                    seatId: {{ $seat->id }},
-                    seatType: {{ $seat->seatType->id }},
-                }));   
+                        left: {{ $table->position_x }} - seatWidth,
+                        top: {{ $table->position_y }} - seatWidth,
+                        width: seatWidth,
+                        height: seatWidth,
+                        fill: "blue",
+                        seatId: {{ $seat->id }},
+                        seatType: {{ $seat->seatType->id }},
+                    })
+                );   
             @endforeach
             tables.push(
                 new fabric.Rect({
                     left: {{ $table->position_x }},
                     top: {{ $table->position_y }},
-                    width: 40,
-                    height: 40,
+                    width: tableWidth,
+                    height: tableWidth,
                     fill: "black",
                     seats: seats,
-            }));
+                })
+            );
             seats = [];
         @endforeach
                     
         tables.forEach(function(table) {
             canvas.add(table);  
-            table.seats.forEach(function(seat) {
+            table.seats.forEach(function(seat, seatIndex) {
                 canvas.add(seat);  
             });
         });
+        for (let i = 0; i < 2; i++) {
+            for (let j = 0; j < 2; j++) {
+            
+            }
+        }
 
+        function evaluateX(index) {
+            if (index < 4) {
+                return (index % 2) + 1;
+            } else {
+                return (index % 4 > 1) * 3 
+            }
+        }
+
+        function evaluateY(index) {
+            if (index < 4) {
+                return (index % 4 > 1) * 3 
+            } else {
+                return (index % 2) + 1;
+            }
+        }
     </script>
 </div>
