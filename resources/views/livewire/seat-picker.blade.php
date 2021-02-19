@@ -6,7 +6,7 @@
         @endadmin
     </div>
     <div class="xl:flex my-12 h-full">
-        <div id="canvas-wrapper" class="w-full xl:w-2/3 h-full xl:h-2/3 pl-4">
+        <div id="canvas-wrapper" class="w-full xl:w-2/3 h-full xl:h-2/3 pl-4" wire:ignore>
             <canvas id="canvas"></canvas>
         </div>
         <div class="w-full xl:w-1/3">
