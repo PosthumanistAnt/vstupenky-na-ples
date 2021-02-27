@@ -2411,16 +2411,16 @@
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "2.12.12",
+            "version": "2.12.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "0837e40bba4ccb9e6d3aedbd85ac54232eda4f9d"
+                "reference": "8e93b9efee3a68960e5c832f937170c2fc0b2f37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/0837e40bba4ccb9e6d3aedbd85ac54232eda4f9d",
-                "reference": "0837e40bba4ccb9e6d3aedbd85ac54232eda4f9d",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/8e93b9efee3a68960e5c832f937170c2fc0b2f37",
+                "reference": "8e93b9efee3a68960e5c832f937170c2fc0b2f37",
                 "shasum": ""
             },
             "require": {
@@ -2476,7 +2476,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-cookie-consent/issues",
-                "source": "https://github.com/spatie/laravel-cookie-consent/tree/2.12.12"
+                "source": "https://github.com/spatie/laravel-cookie-consent/tree/2.12.13"
             },
             "funding": [
                 {
@@ -2484,7 +2484,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2021-01-29T20:20:28+00:00"
+            "time": "2021-02-26T08:04:10+00:00"
         },
         {
             "name": "stevebauman/purify",

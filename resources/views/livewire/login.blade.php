@@ -16,4 +16,5 @@
       <button class="btn btn-secondary" wire:click="register"> Registrace </button>
     </div>
   </form>
+  @include('cookieConsent::index')
 </div>
