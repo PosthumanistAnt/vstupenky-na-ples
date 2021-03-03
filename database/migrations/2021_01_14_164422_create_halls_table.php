@@ -19,6 +19,7 @@ class CreateHallsTable extends Migration
             $table->integer('table_columns');
             $table->integer('table_rows');
             $table->string('description')->nullable();
+            $table->string('image')->nullable();
         });
     }
 

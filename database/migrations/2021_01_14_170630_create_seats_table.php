@@ -14,7 +14,8 @@ class CreateSeatsTable extends Migration
     public function up()
     {
         Schema::create('seats', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id');
+            $table->primary('id');
             $table->string('description')->nullable();
             $table->integer('table_position');
             $table->unsignedBigInteger('table_id');

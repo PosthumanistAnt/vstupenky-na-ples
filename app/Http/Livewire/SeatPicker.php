@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Table;
+use App\Models\Seat;
 use Livewire\Component;
 
 class SeatPicker extends Component
@@ -17,6 +18,7 @@ class SeatPicker extends Component
     {
         return redirect('logout');
     }
+
     public function render()
     {
         return view('livewire.seat-picker', [

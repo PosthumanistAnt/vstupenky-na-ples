@@ -23,6 +23,7 @@ class LeanServiceProvider extends ServiceProvider
         });
 
         Lean::addPage('home', Pages\Welcome::class);
+        Lean::addPage('tableLayout', Pages\TableLayoutPage::class);
         Lean::addResource('users', Resources\UserResource::class);
         Lean::addResource('messageTypes', Resources\MessageTypeResource::class);
         Lean::addResource('messages', Resources\MessageResource::class);

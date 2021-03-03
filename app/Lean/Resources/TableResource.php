@@ -17,8 +17,8 @@ class TableResource extends LeanResource
         'id',
         'description',
         'num_seats',
-        'hall_column',
-        'hall_row',
+        'position_x',
+        'position_y',
     ];
 
     public static string $title = 'id';
@@ -37,8 +37,8 @@ class TableResource extends LeanResource
             ID::make('id'),
             Text::make('description')->label(__('Description')),
             Number::make('num_seats')->label(__('Number of seats')),
-            Number::make('hall_column')->label(__('Hall column')),
-            Number::make('hall_row')->label(__('Hall row')),
+            Number::make('position_x')->label(__('Position X')),
+            Number::make('position_y')->label(__('Position Y')),
             BelongsTo::make('hall')->parent(HallResource::class)->label(__('Hall')),
             Pikaday::make('updated_at')->display('show', 'edit'),
             Pikaday::make('created_at')->disabled()->display('show'),

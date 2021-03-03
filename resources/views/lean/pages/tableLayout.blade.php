@@ -1,21 +1,20 @@
-<div class="h-screen pb-4 w-auto">    
-    <div class="w-full xl:flex xl:justify-between text-center">
-        <button class="btn btn-secondary" wire:click="logout"> Odhlásit </button>
-        @admin
-            <button class="btn btn-secondary" wire:click="admin"> Admin </button>
-        @endadmin
+<div class="h-screen w-auto">    
+    <div class="h-1/3 w-auto m-4 flex justify-between p-5">
+        <button class="p-5 bg-purple-600 text-white" onclick="addTable()">Přidat stůl</button>
+        <button class="p-5 bg-purple-600 text-white">Duplikovat výběr</button>
+        <button class="p-5 bg-purple-600 text-white">Uložit do databáze</button>
     </div>
-    <div class="xl:flex my-12 h-full">
-        <div id="canvas-wrapper" class="w-full xl:w-2/3 h-full xl:h-2/3 pl-4" wire:ignore>
+    <div class="my-12 h-full">
+        <div id="canvas-wrapper" class="w-full" style="height: 50vh" wire:ignore>
             <canvas id="canvas"></canvas>
         </div>
-        <div class="w-full xl:w-1/3">
-            <h2 class="text-3xl text-center tracking-wide"> Nákupní košík (TODO) </h2>
+        <div class="p-5">
+            <label for="num-seats" class="p-5"> Počet stoliček nových stolů </label>
+            <input id="num-seats" type="number" min="0" max="8" class="p-5 bg-purple-50">
         </div>
     </div>
 
     <script>   
-        var seats =  [];
         var seatWidth = 20;
 
         var tables =  [];
@@ -71,6 +70,23 @@
             width: document.getElementById('canvas-wrapper').clientWidth,
             height: document.getElementById('canvas-wrapper').clientHeight,
         });
+
+        // add guiding lines to know where coordinates start
+        // add vertical guiding line
+        canvas.add(new fabric.Line([0, 0, 0, 4000], {
+            left: 0,
+            top: -2000,
+            stroke: 'black',
+            selectable: false,        
+        }));
+
+        // add horizontal guiding line
+        canvas.add(new fabric.Line([0, 0, 4000, 0], {
+            left: -2000,
+            top: 0,
+            stroke: 'black',
+            selectable: false,
+        }));
 
         // panning
         canvas.on( 'mouse:down', function(opt) {
@@ -135,7 +151,7 @@
                 fill: "black",
                 seats: [],
             });
-
+            tables.push(table);
             canvas.add(table);
 
             @foreach( $table->seats as $seat )
@@ -152,12 +168,11 @@
                     seatType: {{ $seat->seatType->id }},
                 }));  
 
-                canvas.add( table.seats[ table.seats.length - 1 ]);
+                canvas.add( table.seats[ {{$loop->index }}]);
             @endforeach
         @endforeach
 
-
-        // move seats when table is moving
+        // moving seats when table is moving
         canvas.on('object:moving', function(e) {
             var table = e.target;
 
@@ -168,7 +183,7 @@
             });
         });
 
-        // same as on moving but on moved
+        // moved seats - same as on moving but on moved
         canvas.on('object:moved', function(e) {
             var table = e.target;
 
@@ -192,5 +207,44 @@
                 y: y
             };
         }
+
+        var $ = function(id){return document.getElementById(id)};
+        // var rect = new fabric.Rect({
+        // width: 100,
+        // height: 100,
+        // top: 100,
+        // left: 100,
+        // fill: 'rgba(255,0,0,0.5)'
+        // });
+
+        // canvas.add(rect);
+
+        // var angleControl = $('angle-control');
+        //     angleControl.oninput = function() {
+        //     rect.set('angle', parseInt(this.value, 10)).setCoords();
+        //     canvas.requestRenderAll();
+        // };
+
+        // function updateControls() {
+        //     angleControl.value = rect.angle;
+        // }
+        // canvas.on({
+        //     'object:rotating': updateControls,
+        // });
+
+        function addTable(){
+            var num_seats = document.getElementById('num-seats').value;
+            console.log(num_seats);
+            var table = new fabric.Rect({
+                left: {{ $table->position_x }},
+                top: {{ $table->position_y }},
+                width: tableWidth,
+                height: tableWidth,
+                fill: "black",
+                seats: [],
+            });
+
+        }
+
     </script>
 </div>

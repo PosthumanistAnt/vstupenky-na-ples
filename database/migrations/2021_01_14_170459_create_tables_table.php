@@ -16,7 +16,6 @@ class CreateTablesTable extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
             $table->string('description')->nullable();
-            $table->integer('num_seats');
             $table->integer('position_x');
             $table->integer('position_y');
             $table->unsignedBigInteger('hall_id');
