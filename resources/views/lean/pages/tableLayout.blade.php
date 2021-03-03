@@ -208,7 +208,7 @@
             };
         }
 
-        var $ = function(id){return document.getElementById(id)};
+        // var $ = function(id){return document.getElementById(id)};
         // var rect = new fabric.Rect({
         // width: 100,
         // height: 100,
