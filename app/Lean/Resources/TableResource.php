@@ -16,7 +16,6 @@ class TableResource extends LeanResource
     public static array $searchable = [
         'id',
         'description',
-        'num_seats',
         'position_x',
         'position_y',
     ];
@@ -36,7 +35,6 @@ class TableResource extends LeanResource
         return [
             ID::make('id'),
             Text::make('description')->label(__('Description')),
-            Number::make('num_seats')->label(__('Number of seats')),
             Number::make('position_x')->label(__('Position X')),
             Number::make('position_y')->label(__('Position Y')),
             BelongsTo::make('hall')->parent(HallResource::class)->label(__('Hall')),
