@@ -1,16 +1,12 @@
 <div class="h-screen w-auto">    
     <div class="h-1/3 w-auto m-4 flex justify-between p-5">
-        <button class="p-5 bg-purple-600 text-white" onclick="addTable()">Přidat stůl</button>
-        <button class="p-5 bg-purple-600 text-white">Duplikovat výběr</button>
+        <a href="{{ url('admin/tables/create') }}" class="p-5 bg-purple-600 text-white">Přidat stůl</a>
+        <button class="p-5 bg-purple-600 text-white" onclick="duplicateSelection()">Duplikovat výběr</button>
         <button class="p-5 bg-purple-600 text-white">Uložit do databáze</button>
     </div>
     <div class="my-12 h-full">
-        <div id="canvas-wrapper" class="w-full" style="height: 50vh" wire:ignore>
+        <div id="canvas-wrapper" class="w-full h-screen" wire:ignore>
             <canvas id="canvas"></canvas>
-        </div>
-        <div class="p-5">
-            <label for="num-seats" class="p-5"> Počet stoliček nových stolů </label>
-            <input id="num-seats" type="number" min="0" max="8" class="p-5 bg-purple-50">
         </div>
     </div>
 
