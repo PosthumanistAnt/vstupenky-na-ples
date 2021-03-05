@@ -136,7 +136,53 @@
                 seat.set("fill", 'green');
             } 
         });
-        
+
+        // moving seats when table is moving
+        canvas.on( 'object:moving', function(e) {
+            var selectedObject = e.target;
+
+            if (selectedObject.type !== 'activeSelection') {
+                selectedObject.seats.forEach( function( seat, seatIndex ) {
+                    var seatPosition = evaluateSeatPosition( seatIndex, selectedObject )
+                    seat.left = seatPosition.x;
+                    seat.top = seatPosition.y;
+                });
+            }
+            if (selectedObject.type === 'activeSelection') {
+                selectedObject._objects.forEach(table => {
+                    console.log(table);
+                    table.seats.forEach( function( seat, seatIndex ) {
+                        var seatPosition = evaluateSeatPosition( seatIndex, table, selectedObject )
+                        seat.left = seatPosition.x;
+                        seat.top = seatPosition.y;
+                    });
+                });
+            }
+        });
+
+        // moved seats - same as on moving but on moved
+        canvas.on( 'object:moved', function(e) {
+            var selectedObject = e.target;
+
+            if (selectedObject.type !== 'activeSelection') {
+                selectedObject.seats.forEach( function( seat, seatIndex ) {
+                    var seatPosition = evaluateSeatPosition( seatIndex, selectedObject )
+                    seat.left = seatPosition.x;
+                    seat.top = seatPosition.y;
+                });
+            }
+            if (selectedObject.type === 'activeSelection') {
+                selectedObject._objects.forEach(table => {
+                    console.log(table);
+                    table.seats.forEach( function( seat, seatIndex ) {
+                        var seatPosition = evaluateSeatPosition( seatIndex, table, selectedObject )
+                        seat.left = seatPosition.x;
+                        seat.top = seatPosition.y;
+                    });
+                });
+            }
+        });
+
         // push results from DB to js arrays
         @foreach ( $tables as $table )
             var table = new fabric.Rect({
@@ -168,35 +214,22 @@
             @endforeach
         @endforeach
 
-        // moving seats when table is moving
-        canvas.on('object:moving', function(e) {
-            var table = e.target;
+        function evaluateSeatPosition(seatIndex, table, group = null) {
+            var groupOffset = {
+                x: 0,
+                y: 0
+            };
 
-            table.seats.forEach( function( seat, seatIndex ) {
-                var seatPosition = evaluateSeatPosition(seatIndex, table)
-                seat.left = seatPosition.x;
-                seat.top = seatPosition.y;
-            });
-        });
+            if(group){
+                groupOffset.x = group.aCoords.tl.x + group.width/2;
+                groupOffset.y = group.aCoords.tl.y + group.height/2;
+            }
 
-        // moved seats - same as on moving but on moved
-        canvas.on('object:moved', function(e) {
-            var table = e.target;
-
-            table.seats.forEach( function( seat, seatIndex ) {
-                var seatPosition = evaluateSeatPosition(seatIndex, table)
-                seat.left = seatPosition.x;
-                seat.top = seatPosition.y;
-            });
-        });
-
-
-        function evaluateSeatPosition(seatIndex, table) {
             var desiredPosition = positionsList[seatIndex];
             var tableCoords = table.aCoords;
 
-            var x = tableCoords[desiredPosition.corner].x + desiredPosition.x * seatWidth;
-            var y = tableCoords[desiredPosition.corner].y + desiredPosition.y * seatWidth;
+            var x = tableCoords[desiredPosition.corner].x + desiredPosition.x * seatWidth + groupOffset.x;
+            var y = tableCoords[desiredPosition.corner].y + desiredPosition.y * seatWidth + groupOffset.y;
 
             return {
                 x: x,
@@ -228,19 +261,27 @@
         //     'object:rotating': updateControls,
         // });
 
-        function addTable(){
-            var num_seats = document.getElementById('num-seats').value;
-            console.log(num_seats);
-            var table = new fabric.Rect({
-                left: {{ $table->position_x }},
-                top: {{ $table->position_y }},
-                width: tableWidth,
-                height: tableWidth,
-                fill: "black",
-                seats: [],
-            });
-
+        function duplicateSelection(){
+            console.log( canvas.getActiveObject() );
+            if (!canvas.getActiveObject()) {
+                console.log( 'Neni nic vybraneho' );
+                return;
+            }
+            if (canvas.getActiveObject().type !== 'activeSelection') {
+                console.log( 'Jenom 1 objekt' );
+                return;
+            }
+            canvas.add( canvas.getActiveObject().clone() );
+            canvas.requestRenderAll();
+            // canvas.add( canvas.getActiveObject() );
+            // var table = new fabric.Rect({
+            //     left: {{ $table->position_x }},
+            //     top: {{ $table->position_y }},
+            //     width: tableWidth,
+            //     height: tableWidth,
+            //     fill: "black",
+            //     seats: [],
+            // });
         }
-
     </script>
 </div>
