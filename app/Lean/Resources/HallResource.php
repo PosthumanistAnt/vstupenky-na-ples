@@ -6,6 +6,7 @@ use Lean\Fields\ID;
 use Lean\Fields\Pikaday;
 use Lean\Fields\Text;
 use Lean\Fields\Number;
+use Lean\Fields\Relations\HasMany;
 use Lean\LeanResource;
 
 class HallResource extends LeanResource
@@ -37,6 +38,8 @@ class HallResource extends LeanResource
             Number::make('table_columns')->label(__('Table columns')),
             Number::make('table_rows')->label(__('Table rows')),
             Text::make('description')->label(__('Description')),
+            HasMany::make('tables')->of(TableResource::class)->label(__('Seats')),
+
 
             
         ];

@@ -7,6 +7,7 @@ use Lean\Fields\Pikaday;
 use Lean\Fields\Text;
 use Lean\Fields\Number;
 use Lean\Fields\Relations\BelongsTo;
+use Lean\Fields\Relations\HasMany;
 use Lean\LeanResource;
 
 class TableResource extends LeanResource
@@ -38,6 +39,7 @@ class TableResource extends LeanResource
             Number::make('position_x')->label(__('Position X')),
             Number::make('position_y')->label(__('Position Y')),
             BelongsTo::make('hall')->parent(HallResource::class)->label(__('Hall')),
+            HasMany::make('seats')->of(SeatResource::class)->label(__('Seats')),
             Pikaday::make('updated_at')->display('show', 'edit'),
             Pikaday::make('created_at')->disabled()->display('show'),
         ];
