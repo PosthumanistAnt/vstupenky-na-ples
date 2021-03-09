@@ -193,22 +193,35 @@
                 fill: "black",
                 seats: [],
             });
-            tables.push(table);
-            canvas.add(table);
+            tables.push( table );
+            canvas.add( table );
 
             @foreach( $table->seats as $seat )
-                var seatPosition = evaluateSeatPosition({{ $loop->index }}, table);
-
-                table.seats.push( new fabric.Rect({
-                    left: seatPosition.x,
-                    top: seatPosition.y,
+                var groupPosition = evaluateSeatPosition( {{ $loop->index }}, table );
+                var seat = new fabric.Rect({
+                    originX: 'center',
+                    originY: 'center',
                     width: seatWidth,
                     height: seatWidth,
                     fill: "blue",
-                    selectable: false,
                     seatId: {{ $seat->id }},
                     seatType: {{ $seat->seatType->id }},
-                }));  
+                });
+
+                var text = new fabric.Text( "{{ $seat->number }}" , {
+                    fill: 'white',
+                    fontSize: 12,
+                    originX: 'center',
+                    originY: 'center'
+                });
+
+                var group = new fabric.Group([ seat, text ], {
+                    left: groupPosition.x,
+                    top: groupPosition.y,
+                    selectable: false,
+                });
+
+                table.seats.push( group );  
 
                 canvas.add( table.seats[ {{$loop->index }}]);
             @endforeach
@@ -283,5 +296,6 @@
             //     seats: [],
             // });
         }
+        
     </script>
 </div>
