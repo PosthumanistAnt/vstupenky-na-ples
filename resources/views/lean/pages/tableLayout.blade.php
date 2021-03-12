@@ -128,20 +128,21 @@
         canvas.on( 'object:moving', function(e) {
             var selectedObject = e.target;
 
-            if (selectedObject.type !== 'activeSelection') {
-                selectedObject.seats.forEach( function( seat, seatIndex ) {
-                    var seatPosition = evaluateSeatPosition( seatIndex, selectedObject )
-                    seat.left = seatPosition.x;
-                    seat.top = seatPosition.y;
+            if (selectedObject.type === 'table') {
+                selectedObject.seatGroups.forEach( function( seatGroup, seatIndex ) {
+                    var seatGroupPosition = evaluateSeatPosition( seatIndex, selectedObject );
+                    seatGroup.set('left', seatGroupPosition.x);
+                    seatGroup.top = seatGroupPosition.y;
                 });
             }
+            
+
             if (selectedObject.type === 'activeSelection') {
                 selectedObject._objects.forEach(table => {
-                    console.log(table);
-                    table.seats.forEach( function( seat, seatIndex ) {
-                        var seatPosition = evaluateSeatPosition( seatIndex, table, selectedObject )
-                        seat.left = seatPosition.x;
-                        seat.top = seatPosition.y;
+                    table.seatGroups.forEach( function( seatGroup, seatIndex ) {
+                        var seatGroupPosition = evaluateSeatPosition( seatIndex, table, selectedObject );
+                        seatGroup.left = seatGroupPosition.x;
+                        seatGroup.top = seatGroupPosition.y;
                     });
                 });
             }
@@ -151,20 +152,20 @@
         canvas.on( 'object:moved', function(e) {
             var selectedObject = e.target;
 
-            if (selectedObject.type !== 'activeSelection') {
-                selectedObject.seats.forEach( function( seat, seatIndex ) {
-                    var seatPosition = evaluateSeatPosition( seatIndex, selectedObject )
-                    seat.left = seatPosition.x;
-                    seat.top = seatPosition.y;
+            if (selectedObject.type === 'table') {
+                selectedObject.seatGroups.forEach( function( seatGroup, seatIndex ) {
+                    var seatGroupPosition = evaluateSeatPosition( seatIndex, selectedObject );
+                    seatGroup.left = seatGroupPosition.x;
+                    seatGroup.top = seatGroupPosition.y;
                 });
             }
+
             if (selectedObject.type === 'activeSelection') {
                 selectedObject._objects.forEach(table => {
-                    console.log(table);
-                    table.seats.forEach( function( seat, seatIndex ) {
-                        var seatPosition = evaluateSeatPosition( seatIndex, table, selectedObject )
-                        seat.left = seatPosition.x;
-                        seat.top = seatPosition.y;
+                    table.seatGroups.forEach( function( seat, seatIndex ) {
+                        var seatGroupPosition = evaluateSeatPosition( seatIndex, table, selectedObject );
+                        seat.left = seatGroupPosition.x;
+                        seat.top = seatGroupPosition.y;
                     });
                 });
             }
@@ -177,8 +178,10 @@
                 top: {{ $table->position_y }},
                 width: tableWidth,
                 height: tableWidth,
+                type: 'table',
+                hasControls: false,
                 fill: "black",
-                seats: [],
+                seatGroups: [],
             });
             tables.push( table );
             canvas.add( table );
@@ -193,40 +196,45 @@
                     fill: "blue",
                     seatId: {{ $seat->id }},
                     seatType: {{ $seat->seatType->id }},
+                    type: 'seat',
                 });
 
                 var text = new fabric.Text( "{{ $seat->number }}" , {
                     fill: 'white',
-                    fontSize: 12,
+                    fontSize: 10,
                     originX: 'center',
-                    originY: 'center'
+                    originY: 'center',
+                    type: 'seatNumber',
                 });
 
-                var group = new fabric.Group([ seat, text ], {
+                var seatGroup = new fabric.Group([ seat, text ], {
                     left: groupPosition.x,
                     top: groupPosition.y,
                     selectable: false,
+                    type: 'seatGroup',
                 });
 
-                table.seats.push( group );  
+                table.seatGroups.push( seatGroup );  
 
-                canvas.add( table.seats[ {{$loop->index }}]);
+                canvas.add( table.seatGroups[ {{$loop->index }}]);
             @endforeach
         @endforeach
 
         function evaluateSeatPosition(seatIndex, table, group = null) {
+
             var groupOffset = {
                 x: 0,
                 y: 0
             };
-
+            
             if(group){
                 groupOffset.x = group.aCoords.tl.x + group.width/2;
                 groupOffset.y = group.aCoords.tl.y + group.height/2;
             }
 
             var desiredPosition = positionsList[seatIndex];
-            var tableCoords = table.aCoords;
+
+            var tableCoords = table.calcCoords(true);
 
             var x = tableCoords[desiredPosition.corner].x + desiredPosition.x * seatWidth + groupOffset.x;
             var y = tableCoords[desiredPosition.corner].y + desiredPosition.y * seatWidth + groupOffset.y;
@@ -236,6 +244,7 @@
                 y: y
             };
         }
+
 
         // var $ = function(id){return document.getElementById(id)};
         // var rect = new fabric.Rect({
@@ -280,7 +289,7 @@
             //     width: tableWidth,
             //     height: tableWidth,
             //     fill: "black",
-            //     seats: [],
+            //     seatGroups: [],
             // });
         }
         
