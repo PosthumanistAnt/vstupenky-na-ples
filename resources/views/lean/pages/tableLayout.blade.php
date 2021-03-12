@@ -15,6 +15,8 @@
 
         var tables =  [];
         var tableWidth = 50;
+
+        var panning = false;
         
         // change in position of seat depending on its index in table
         var positionsList = [
@@ -84,37 +86,22 @@
             selectable: false,
         }));
 
-        // panning
-        canvas.on( 'mouse:down', function(opt) {
-            var evt = opt.e;
-            if (evt.altKey === true) {
-                this.isDragging = true;
-                this.selection = false;
-                this.lastPosX = evt.clientX;
-                this.lastPosY = evt.clientY;
-            }
+        canvas.on('mouse:down', function (e) {
+            panning = true;
         });
 
-        // still panning
-        canvas.on( 'mouse:move', function(opt) {
-            if (this.isDragging) {
-                var e = opt.e;
-                var vpt = this.viewportTransform;
-                vpt[4] += e.clientX - this.lastPosX;
-                vpt[5] += e.clientY - this.lastPosY;
-                this.requestRenderAll();
-                this.lastPosX = e.clientX;
-                this.lastPosY = e.clientY;
-            }
-        });
-
-        // also panning
-        canvas.on( 'mouse:up', function(opt) {
-            // on mouse up we want to recalculate new interaction
-            // for all objects, so we call setViewportTransform
-            this.setViewportTransform(this.viewportTransform);
-            this.isDragging = false;
+        canvas.on('mouse:up', function (e) {
+            panning = false;
             this.selection = true;
+        });
+
+        canvas.on('mouse:move', function (e) {
+            if (panning && e && e.e && e.e.altKey === true) {
+                var units = 10;
+                var delta = new fabric.Point(e.e.movementX, e.e.movementY);
+                this.selection = false;
+                canvas.relativePan(delta);
+            }
         });
         
         // zooming
