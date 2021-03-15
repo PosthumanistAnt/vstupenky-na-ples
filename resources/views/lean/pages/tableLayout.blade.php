@@ -126,50 +126,27 @@
 
         // moving seats when table is moving
         canvas.on( 'object:moving', function(e) {
-            var selectedObject = e.target;
-
-            if (selectedObject.type === 'table') {
-                selectedObject.seatGroups.forEach( function( seatGroup, seatIndex ) {
-                    var seatGroupPosition = evaluateSeatPosition( seatIndex, selectedObject );
-                    seatGroup.set('left', seatGroupPosition.x);
-                    seatGroup.top = seatGroupPosition.y;
-                });
-            }
-            
-
-            if (selectedObject.type === 'activeSelection') {
-                selectedObject._objects.forEach(table => {
-                    table.seatGroups.forEach( function( seatGroup, seatIndex ) {
-                        var seatGroupPosition = evaluateSeatPosition( seatIndex, table, selectedObject );
-                        seatGroup.left = seatGroupPosition.x;
-                        seatGroup.top = seatGroupPosition.y;
-                    });
-                });
-            }
+            handleTableMove( e );
         });
 
         // moved seats - same as on moving but on moved
-        canvas.on( 'object:moved', function(e) {
+        canvas.on( 'object:moved', function( e ) {
+            handleTableMove( e );
+        });
+
+        function handleTableMove( e ) {
             var selectedObject = e.target;
 
             if (selectedObject.type === 'table') {
-                selectedObject.seatGroups.forEach( function( seatGroup, seatIndex ) {
-                    var seatGroupPosition = evaluateSeatPosition( seatIndex, selectedObject );
-                    seatGroup.left = seatGroupPosition.x;
-                    seatGroup.top = seatGroupPosition.y;
-                });
+                setCorrectSeatGroupsPosition( selectedObject );
             }
 
             if (selectedObject.type === 'activeSelection') {
-                selectedObject._objects.forEach(table => {
-                    table.seatGroups.forEach( function( seat, seatIndex ) {
-                        var seatGroupPosition = evaluateSeatPosition( seatIndex, table, selectedObject );
-                        seat.left = seatGroupPosition.x;
-                        seat.top = seatGroupPosition.y;
-                    });
-                });
+                selectedObject._objects.forEach(table =>
+                    setCorrectSeatGroupsPosition( table, selectedObject )
+                );
             }
-        });
+        }
 
         // push results from DB to js arrays
         @foreach ( $tables as $table )
@@ -183,11 +160,14 @@
                 fill: "black",
                 seatGroups: [],
             });
+
             tables.push( table );
             canvas.add( table );
 
             @foreach( $table->seats as $seat )
-                var groupPosition = evaluateSeatPosition( {{ $loop->index }}, table );
+            
+                var groupPosition = evaluateSeatGroupPosition( {{ $loop->index }}, table );
+
                 var seat = new fabric.Rect({
                     originX: 'center',
                     originY: 'center',
@@ -215,12 +195,20 @@
                 });
 
                 table.seatGroups.push( seatGroup );  
+                canvas.add( table.seatGroups[ {{$loop->index }} ] );
 
-                canvas.add( table.seatGroups[ {{$loop->index }}]);
             @endforeach
         @endforeach
 
-        function evaluateSeatPosition(seatIndex, table, group = null) {
+        function setCorrectSeatGroupsPosition( table, group ) {
+            table.seatGroups.forEach( function ( seatGroup, seatGroupIndex ) {       
+                var evaluatedSeatGroupPosition = evaluateSeatGroupPosition( seatGroupIndex, table, group );
+                seatGroup.left = evaluatedSeatGroupPosition.x;
+                seatGroup.top = evaluatedSeatGroupPosition.y;
+            });
+        }
+
+        function evaluateSeatGroupPosition(seatIndex, table, group = null) {
 
             var groupOffset = {
                 x: 0,
