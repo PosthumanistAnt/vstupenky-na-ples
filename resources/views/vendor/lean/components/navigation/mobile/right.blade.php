@@ -1,6 +1,7 @@
-@foreach(Lean::resources() as $alias => $resource)
+@php($links = Lean::menuLinks())
+@foreach(Lean::$mobileMenu['right'] as $item)
     <x-lean::navigation.mobile.link
-        :icon="$resource::icon()"
-        :href="route('lean.resource.index', $alias)"
+        :icon="$links[$item]->icon"
+        :href="$links[$item]->link"
     />
 @endforeach

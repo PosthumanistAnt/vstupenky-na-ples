@@ -27,7 +27,7 @@
 @else
     <div
         x-data="{
-            deleted: @entangle('fieldMetadata.' . $field->name . '.deleted'),
+            deleted: $wire.entangle('{{ 'fieldMetadata.' . $field->name . '.deleted' }}'),
             color() {
                 return this.deleted ? ' text-red-600 ' : ' text-gray-700 '
             }
@@ -48,7 +48,7 @@
                         >
                     @endforeach
                     <input
-                        id="{{ $field->name }}"
+                        id="{{ $field->id($_instance) }}"
                         type="file"
                         @if(! $field->isEnabled()) disabled @endif
                         class="form-input"

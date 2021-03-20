@@ -22,17 +22,17 @@ class LeanServiceProvider extends ServiceProvider
             ]);
         });
 
-        Lean::addPage('home', Pages\Welcome::class);
-        Lean::addPage('tableLayout', Pages\TableLayoutPage::class);
-        Lean::addResource('users', Resources\UserResource::class);
-        Lean::addResource('messageTypes', Resources\MessageTypeResource::class);
-        Lean::addResource('messages', Resources\MessageResource::class);
-        Lean::addResource('halls', Resources\HallResource::class);
-        Lean::addResource('tables', Resources\TableResource::class);
-        Lean::addResource('seats', Resources\SeatResource::class);
-        Lean::addResource('seatTypes', Resources\SeatTypeResource::class);
-        Lean::addResource('reservedSeats', Resources\ReservedSeatResource::class);
-        Lean::addResource('orderStates', Resources\OrderStateResource::class);
-        Lean::addResource('orders', Resources\OrderResource::class);
+        Lean::page('home', Pages\HomePage::class);
+        Lean::page('tableLayout', Pages\TableLayoutPage::class);
+        Lean::resource('users', Resources\UserResource::class);
+        Lean::resource('messageTypes', Resources\MessageTypeResource::class);
+        Lean::resource('messages', Resources\MessageResource::class);
+        Lean::resource('halls', Resources\HallResource::class);
+        Lean::resource('tables', Resources\TableResource::class);
+        Lean::resource('seats', Resources\SeatResource::class);
+        Lean::resource('seatTypes', Resources\SeatTypeResource::class);
+        Lean::resource('reservedSeats', Resources\ReservedSeatResource::class);
+        Lean::resource('orderStates', Resources\OrderStateResource::class);
+        Lean::resource('orders', Resources\OrderResource::class);
     }
 }

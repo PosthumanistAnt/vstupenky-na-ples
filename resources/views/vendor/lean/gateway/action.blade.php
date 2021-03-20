@@ -2,6 +2,8 @@
 
 @section('content')
 
-@livewire($action, $data, key('main-lean-action'))
+<div>
+    @livewire($action, $data, key('main-lean-action'))
+</div>
 
 @endsection

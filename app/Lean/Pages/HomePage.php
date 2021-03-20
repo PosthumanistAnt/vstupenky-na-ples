@@ -4,11 +4,11 @@ namespace App\Lean\Pages;
 
 use Lean\Livewire\Pages\LeanPage;
 
-class Welcome extends LeanPage
+class HomePage extends LeanPage
 {
     public static function label(): string
     {
-        return 'Home';
+        return __('Home');
     }
 
     public static function icon(): string
@@ -16,8 +16,10 @@ class Welcome extends LeanPage
         return 'heroicon-o-home';
     }
 
+    // Any custom Livewire logic...
+
     public function render()
     {
-        return view('lean.pages.welcome');
+        return view('lean.pages.home');
     }
 }

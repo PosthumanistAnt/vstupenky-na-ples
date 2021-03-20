@@ -67,7 +67,13 @@
             delete this.pendingRemovals[index];
         },
     }'
-    x-on:load.window="setTimeout(() => { sessionMessages.forEach(message => { add(message) }) }, {!! $loadDelay !!})"
+    x-init="window.LivewireLoaded ?
+            setTimeout(() => { sessionMessages.forEach(message => { add(message) }) }, {!! $loadDelay !!})
+        :
+            document.addEventListener('livewire:load', () => {
+                setTimeout(() => { sessionMessages.forEach(message => { add(message) }) }, {!! $loadDelay !!})
+            })
+    "
     x-on:lean-notify.window="add($event.detail)"
     class="
     fixed inset-0 py-6 pointer-events-none px-4 sm:p-6
@@ -75,7 +81,9 @@
     items-center justify-start {{-- Mobile: top center --}}
     sm:items-end sm:justify-start {{-- Desktop: top right corner --}}
     space-y-3 {{-- Space between individual notifications --}}
+    z-50 {{-- Overlay modals --}}
     "
+    {{ $attributes }}
 >
     <template x-for="[index, message] of Object.entries(messages)" :key="index" hidden>
         <div
@@ -85,30 +93,30 @@
             x-transition:leave="transition ease-in duration-175"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
-            class="max-w-sm w-full bg-white hover:bg-purple-50 shadow rounded-md overflow-hidden pointer-events-auto"
+            class="z-50 max-w-sm w-full bg-white hover:bg-brand-50 dark:bg-black dark:hover:bg-brand-900 shadow rounded-md overflow-hidden pointer-events-auto"
             @mouseenter="cancelRemoval(index)"
             @mouseleave="scheduleRemoval(index)"
         >
             <div class="rounded-lg shadow-xs">
                 <div class="px-4 py-4 mt-0.5 text-sm">
                     <div class="flex justify-center space-x-3">
-                        @svg('heroicon-o-information-circle', ['class' => 'block -mt-0.5 h-6 w-6 text-purple-500'])
+                        @svg('heroicon-o-information-circle', ['class' => 'block -mt-0.5 h-6 w-6 text-brand-500'])
                         <template x-if="message.link">
                             <a :href="message.link" class="flex-1">
-                                <p x-text="message.title" class="font-medium text-gray-700"></p>
-                                <p x-text="message.body" class="mt-1 text-gray-500"></p>
+                                <p x-text="message.title" class="font-medium text-gray-700 dark:text-gray-300"></p>
+                                <p x-text="message.body" class="mt-1 text-gray-500 dark:text-gray-400"></p>
                             </a>
                         </template>
                         <template x-if="! message.link">
                             <div class="flex-1">
-                                <p x-text="message.title" class="font-medium text-gray-700"></p>
-                                <p x-text="message.body" class="mt-1 text-gray-500"></p>
+                                <p x-text="message.title" class="font-medium text-gray-700 dark:text-gray-300"></p>
+                                <p x-text="message.body" class="mt-1 text-gray-500 dark:text-gray-400"></p>
                             </div>
                         </template>
                         <div>
                             <button
                                 @click="remove(index)"
-                                class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+                                class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring focus:ring-brand-500 focus:ring-opacity-50"
                             >
                                 @svg('heroicon-o-x', ['class' => 'h-5 w-5'])
                             </button>

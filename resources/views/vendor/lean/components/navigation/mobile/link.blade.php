@@ -16,9 +16,11 @@
         ($resource && Lean::isCurrentResource($resource)) ||
         ($page && Lean::isCurrentPage($page))
     ))
-        ? 'opacity-90 text-purple-600'
+        ? 'opacity-90 text-brand-600'
         : 'opacity-30',
 ])
+
+{{-- todo modalLinks --}}
 
 <a
     class="{{ $class }}"

@@ -1,27 +1,26 @@
-<div class="flex flex-col">
+<div class="flex flex-col" @leanAction('show', $this->resource) @leanModel($this->resource(), $this->fields)>
     <div class="hidden sm:flex flex-row justify-between flex-wrap">
-        <h1 class="text-2xl font-semibold text-gray-900">{{ $title }}</h1>
+        <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{ $title }}</h1>
 
         <div>
             <x-lean::button
                 class="flex-none inline-flex justify-center rounded-md"
                 design="danger"
                 x-data="{}"
-                :data-confirm-text="$this->resource()::trans('show.delete_confirm')"
-                @click="if (confirm($el.getAttribute('data-confirm-text'))) $wire.call('delete')"
+                @click="$model.delete()"
             >
                 {{ $this->resource()::trans('show.delete') }}
             </x-lean::button>
 
-            <x-lean::button design="outline" class="flex-none inline-flex justify-center rounded-md" href="{{ $editRoute }}">
+            <x-lean::button x-data="Alpine.component('modalLink')('edit', $model)" design="outline" class="flex-none inline-flex justify-center rounded-md" href="{{ $editRoute }}">
                 {{ $this->resource()::trans('show.edit') }}
             </x-lean::button>
         </div>
     </div>
 
-    <div class="divide-y space-y-4 divide-solid divide-gray-100">
+    <div class="divide-y divide-solid divide-gray-100 dark:divide-gray-700">
         @foreach($this->fields as $field)
-            <div>
+            <div class="{!! $field->isTitle() ? 'text-gray-800 dark:text-gray-300 font-medium' : 'text-gray-700 dark:text-gray-400' !!}">
                 <x-lean::field-group :field="$field">
                     <x-lean::field :field="$field" />
                 </x-lean::field-group>
@@ -30,7 +29,7 @@
     </div>
 
     <div class="hidden sm:block sm:mt-2">
-        <x-lean::button design="secondary" class="w-full sm:w-auto flex justify-center text-sm" onclick="window.history.back()">
+        <x-lean::button x-data="Alpine.component('backButton')()" design="secondary" class="w-full sm:w-auto flex justify-center text-sm">
             {{ $this->resource()::trans('back') }}
         </x-lean::button>
     </div>
@@ -39,8 +38,7 @@
         <x-slot name="left">
             <x-lean::navigation.mobile.link class="flex space-x-2 text-red"
                 x-data="{}"
-                :data-confirm-text="$this->resource()::trans('show.delete_confirm')"
-                @click="if (confirm($el.getAttribute('data-confirm-text'))) $wire.call('delete')"
+                @click="$model.delete()"
             >
                 @svg('heroicon-o-trash', ['class' => 'h-6 w-6'])
                 <div>
@@ -52,7 +50,7 @@
             <x-lean::navigation.mobile.button :href="route('lean.resource.create', $this->resource()::alias())" />
         </x-slot>
         <x-slot name="right">
-            <x-lean::navigation.mobile.link class="flex space-x-2" href="{{ $editRoute }}">
+            <x-lean::navigation.mobile.link x-data="Alpine.component('modalLink')('edit', $model)" class="flex space-x-2" href="{{ $editRoute }}">
                 @svg('heroicon-o-pencil-alt', ['class' => 'h-6 w-6'])
                 <div>
                     {{ $this->resource()::trans('show.edit') }}

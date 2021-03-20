@@ -4,11 +4,11 @@
 
 @if($field->action->read())
     <span {{ $attributes }}>
-        {{ $field->value }}
+        {{ $field->options[$field->value] }}
     </span>
 @elseif($field->action->write())
     <select
-        id="{{ $field->name }}"
+        id="{{ $field->id($_instance) }}"
         value="{{ $field->value }}"
         @if($field->isRequired()) required @endif
         @if($field->isOptional()) optional @endif

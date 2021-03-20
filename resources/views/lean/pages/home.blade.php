@@ -1,0 +1,3 @@
+<div>
+    Administrátorský panel
+</div>

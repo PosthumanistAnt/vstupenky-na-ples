@@ -1,4 +1,7 @@
 {
-    "/lean.js": "/lean.js",
-    "/lean.css": "/lean.css"
+    "/lean.js": "/lean.js?id=ffd2af410ff45c5b0601",
+    "/service-worker.js": "/service-worker.js?id=1cd7caf2735cecb9eccd",
+    "/turbolinks.js": "/turbolinks.js?id=403e99f58bd62a7527f6",
+    "/livewire-turbolinks.js": "/livewire-turbolinks.js?id=80df4f8e465ad6b3ebe5",
+    "/lean.css": "/lean.css?id=1fd3bf4d8e86f99a7ea7"
 }

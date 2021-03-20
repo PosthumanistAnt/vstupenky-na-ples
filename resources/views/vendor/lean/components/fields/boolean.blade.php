@@ -15,7 +15,7 @@
         @endif
     @elseif($field->action->write())
         <input
-            id="{{ $field->name }}"
+            id="{{ $field->id($_instance) }}"
             type="checkbox"
             @if(! $field->isEnabled()) disabled @endif
             class="form-checkbox"

@@ -1,19 +1,14 @@
-<form class="flex flex-col" wire:submit.prevent="create">
-    <h1 class="text-2xl font-semibold text-gray-900 hidden sm:inline">{{ $title }}</h1>
+<form class="flex flex-col" wire:submit.prevent="submit" @leanAction('create', $this->resource) @leanModel($this->resource(), $this->fields)>
+    <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-300 hidden sm:inline">{{ $title }}</h1>
 
-    <div class="sm:divide-y divide-solid divide-gray-200">
+    <div class="sm:divide-y divide-solid divide-gray-200 dark:divide-gray-700">
         @foreach($this->fields as $field)
             <div>
-                @if(! isset($firstElementFocused) && $field->isEnabled())
-                    <script>
-                        window.addEventListener('DOMContentLoaded', () => document.getElementById('{{ $field->name }}').focus());
-                    </script>
-                    @php($firstElementFocused = true)
-                @endif
                 <x-lean::field-group :field="$field" :errors="$errors->get($field->name)">
                     <x-lean::field
                         :field="$field"
                         :wire:model.lazy='"fieldMetadata.{$field->name}.value"'
+                        autofocus
                     />
                 </x-lean::field-group>
             </div>
@@ -21,7 +16,7 @@
     </div>
 
     <div class="hidden sm:flex items-start justify-end">
-        <x-lean::button design="secondary" onclick="window.history.back()">
+        <x-lean::button x-data="Alpine.component('backButton')()" design="secondary">
             {{ $this->resource()::trans('back') }}
         </x-lean::button>
 
@@ -43,7 +38,26 @@
 
     <x-lean::navigation.mobile.menu>
         <x-slot name="button">
-            <x-lean::navigation.mobile.button icon="heroicon-o-check-circle" wire:click="create" />
+            <x-lean::navigation.mobile.button icon="heroicon-o-check-circle" wire:click="submit" />
         </x-slot>
     </x-lean::navigation.mobile.menu>
+
+    <div x-data @beforeunload.window="if (true) {
+        {{-- $event.target.addEventListener($event.type, () => console.log('listening')) --}}
+{{--
+        new Promise((resolve, reject) => {
+            Lean.modal('leave', {}, {
+                resource: $action.resource.name,
+                model: $model,
+                stay: () => resolve(true),
+                leave: () => resolve(false),
+            })
+        }).then(() => $event.preventDefault()) --}}
+
+        {{-- console.log(prom);
+
+        if (! prom) {
+            $event.preventDefault();
+        } --}}
+    }">
 </form>

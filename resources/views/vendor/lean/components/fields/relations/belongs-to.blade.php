@@ -4,13 +4,20 @@
 
 @if($field->action->read())
     @if($field->value)
-        <x-lean::link href="{{ $field->getLink() }}">
+        <a
+            x-data="Alpine.component('modalLink')('show', {
+                resource: '{{ $field->getParentAlias() }}',
+                model: '{{ $field->value }}',
+            })"
+            href="{{ $field->getLink() }}"
+            class="styled"
+        >
             {{ $field->linkText }}
-        </x-lean::link>
+        </a>
     @endif
 @else
     <select
-        id="{{ $field->name }}"
+        id="{{ $field->id($_instance) }}"
         value="{{ $field->value }}"
         @if($field->isRequired()) required @endif
         @if($field->isOptional()) optional @endif

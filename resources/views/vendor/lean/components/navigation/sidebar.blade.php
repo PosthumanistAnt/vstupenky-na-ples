@@ -1,3 +1,8 @@
+@props([
+    'background' => 'bg-gray-50 dark:bg-gray-900',
+    'class' => '',
+])
+
 <div
     x-data="{
         expanded: false,
@@ -16,7 +21,8 @@
             this.expanded = ! this.expanded;
         }
     }"
-    class="flex flex-col"
+    class="flex flex-col {{ $class }}"
+    {{ $attributes }}
 >
     <div class="flex flex-row sm:hidden px-4 py-4 w-full">
         @if(Lean::isCurrentAction('index') || request()->routeIs('lean.page'))
@@ -49,6 +55,9 @@
         @endif
     </div>
 
+    {{-- Sidebar content --}}
+    {{-- We use a more complex way of showing/hiding this element using Alpine, because we want it to show by defualt
+         on desktop, but be hidden by default on mobile, while allowing the button to override the default setting. --}}
     <div
         x-show="expanded"
         x-transition:enter="transition ease-out duration-300 transform"
@@ -57,14 +66,28 @@
         x-transition:leave="transition ease-out duration-300 transform"
             x-transition:leave-start="translate-x-0"
             x-transition:leave-end="-translate-x-full"
-        class="absolute sm:static sm:block-important hidden bg-gray-50 min-h-full py-4 w-72 max-w-full sm:w-64 z-40"
+        class="absolute sm:static sm:block-important hidden {{ $background }} min-h-full w-72 max-w-full sm:w-64 z-40"
         x-ref="menu"
         @click.away="expanded = false"
     >
-        <div class="w-full text-gray-700 font-medium text-2xl text-center">{{ Lean::name() }}</div>
-        <x-lean::navigation.items />
+        <div class="w-full min-h-full flex flex-col justify-between py-4">
+            {{-- Top --}}
+            <div>
+                {{ $top ?? '' }}
+                <x-lean::navigation.logo />
+                {{ $above ?? '' }}
+                <x-lean::navigation.items />
+                {{ $below ?? '' }}
+            </div>
+
+            {{-- Bottom --}}
+            <div>
+                {{ $bottom ?? '' }}
+            </div>
+        </div>
     </div>
 
+    {{-- Background overlay --}}
     <div
         x-show="expanded"
         x-transition:enter="transition ease-out duration-300"

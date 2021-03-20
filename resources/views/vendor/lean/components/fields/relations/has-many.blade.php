@@ -2,8 +2,8 @@
     'field',
 ])
 
-@livewire("lean::relations.hasmany.index", [
-    'resultsPerPage' => $field->resultsPerPage,
+@livewire('lean.relations.hasmany.index', [
+    'resultsPerPage' => $field->resultsPerPage ?? Lean::config('relations.hasmany.index.results_per_page'),
 
     'parentRelation' => $field->name,
     'parentKey' => $field->value,

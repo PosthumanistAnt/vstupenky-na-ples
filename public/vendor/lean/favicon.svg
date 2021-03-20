@@ -1,0 +1,25 @@
+<svg width="140" height="140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        #l {
+            fill: #000;
+        }
+
+        #a {
+            /** purple.700 */
+            fill: #7e22ce;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            #l {
+                fill: #fff;
+            }
+
+            #a {
+                /** purple.500 */
+                fill: #a855f7;
+            }
+        }
+    </style>
+    <path id="l" d="M7.398 97h35.795v-6.563H14.796V35.91H7.398V97z" />
+    <path id="a" d="M77.736 33.045H68.28l-19.688 73.143h9.456l19.688-73.142zM92.949 97l5.041-15.064h22.969L126.03 97h11.812l-21.537-61.09h-13.662L81.136 97H92.95zm8.024-23.953l8.263-24.61h.477l8.263 24.61h-17.003z" fill="#7E3AF2"/>
+</svg>

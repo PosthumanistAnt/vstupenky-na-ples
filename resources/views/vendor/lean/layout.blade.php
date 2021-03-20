@@ -1,36 +1,35 @@
-<html>
+<html class="lean">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="{{ mix('lean.css', 'vendor/lean') }}">
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-        <title>{{ $title ?? '' }} | {{ Lean::name() }}</title>
-        @livewireStyles
-        @stack('_lean.styles')
-        <style>
-            [x-cloak] {
-                display: none;
-            }
-        </style>
+        <x-lean::layout.meta />
+        <x-lean::layout.styles />
+        <x-lean::layout.pwa for="head" />
+        <x-lean::layout.scripts for="head" />
+        <x-lean::layout.darkmode for="head" />
+        <x-lean::layout.turbolinks for="head" />
         <script src="{{ asset('js/app.js') }}"></script>
+        </script>
     </head>
 
-    <body class="font-sans">
-        <div class="min-h-screen flex bg-white sm:flex-row flex-col">
-            <x-lean::navigation.sidebar />
-            <div class="min-h-full w-full flex justify-center px-4 py-2 sm:py-6 sm:px-8">
-                <main class="w-full sm:max-w-7xl">
+    <body class="font-sans antialiased">
+        <div class="min-h-screen flex bg-white dark:bg-gray-800 sm:flex-row flex-col">
+            <x-lean::navigation.sidebar>
+                <x-slot name="bottom">
+                    <x-lean::layout.darkmode for="toggle" />
+                </x-slot>
+            </x-lean::navigation.sidebar>
+            <div class="min-h-full w-full flex justify-center px-4 py-2 sm:py-6 sm:px-8 overflow-hidden">
+                <main class="w-full {{ $maxLayoutWidth ?? 'sm:max-w-7xl' }}">
                     @yield('content')
                 </main>
             </div>
         </div>
 
-        <x-lean::notification />
+        <x-lean::layout.notifications />
+        <livewire:lean.layout.modal-manager :prefetch="Lean::$prefetchedActions" />
         <x-lean::console-log />
 
-        @livewireScripts
-        <script src="{{ mix('lean.js', 'vendor/lean') }}"></script>
-        @stack('_lean.scripts')
-        {!! config('lean.scripts.alpine') !!}
+        <x-lean::layout.scripts for="body" />
+        <x-lean::layout.pwa for="body" />
+        <x-lean::layout.turbolinks for="body" />
     </body>
 </html>

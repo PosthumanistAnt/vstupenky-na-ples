@@ -4,7 +4,7 @@
 
 @php($indexExcerpt = fn($value) => Str::words(
     str_replace('&nbsp;', ' ', strip_tags($value)),
-    config('lean.fields.trix.index_excerpt_words'),
+    Lean::config('fields.trix.index_excerpt_words'),
     '...'
 ))
 
@@ -15,23 +15,23 @@
 @elseif($field->action->show())
     <div x-data="{ expanded: {{ $field->expanded ? 'true' : 'false' }} }">
         <template x-if="expanded">
-            <div {{ $attributes }}>
+            <div {{ $attributes }} class="prose">
                 {!! $field->value !!}
             </div>
         </template>
         <div>
-            <x-lean::link x-cloak x-show="! expanded" @click="expanded = true" href="#">
-                Expand
-            </x-lean::link>
-            <x-lean::link x-cloak x-show="expanded" @click="expanded = false" href="#">
-                Collapse
-            </x-lean::link>
+            <a class="styled" x-cloak x-show="! expanded" @click="expanded = true" href="#">
+                {{ gloss('lean::fields.textarea.expand') }}
+            </a>
+            <a class="styled" x-cloak x-show="expanded" @click="expanded = false" href="#">
+                {{ gloss('lean::fields.textarea.collapse') }}
+            </a>
         </div>
     </div>
 @elseif($field->action->write())
     <div
         x-data="{
-            value: @entangle($attributes->wire('model')),
+            value: $wire.entangle('{{ $attributes->wire('model')->value() }}'),
             setValue() { this.$refs.trix.editor.loadHTML(this.value) },
             disable() { this.$refs.trix.contentEditable = false }
         }"
@@ -44,7 +44,7 @@
         @trix-change="value = $event.target.value"
         wire:ignore
     >
-        <input id="{{ $field->name }}" type="hidden">
+        <input id="{{ $field->id($_instance) }}" type="hidden">
         <trix-editor
             x-ref="trix"
             input="{{ $field->name }}"

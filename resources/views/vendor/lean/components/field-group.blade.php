@@ -3,12 +3,12 @@
     'errors' => [],
 ])
 
-<div class="sm:grid sm:grid-cols-4 sm:gap-4 sm:items-start sm:py-5">
-    <label for="{{ $field->name }}" class="block text-xs sm:text-sm font-medium leading-5 text-gray-500 sm:text-gray-700 sm:tracking-normal tracking-wide sm:normal-case uppercase mt-6 sm:mt-px sm:py-2">
+<div class="flex flex-col sm:items-baseline sm:flex-row sm:space-x-4 space-y-1 py-4">
+    <label for="{{ $field->id($_instance) }}" class="sm:w-1/4 w-full block text-xs sm:text-sm font-medium leading-5 text-gray-500 sm:text-gray-700 dark:text-gray-200 sm:dark:text-gray-300 sm:tracking-normal tracking-wide sm:normal-case uppercase sm:py-2">
         {{ $field->getLabel() }}
     </label>
 
-    <div class="mt-1 sm:mt-0 sm:col-span-3">
+    <div class="mt-1 sm:mt-0 sm:w-3/4 w-full">
         {{ $slot }}
 
         @if ($errors)

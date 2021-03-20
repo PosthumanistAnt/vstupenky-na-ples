@@ -10,7 +10,7 @@
     <div wire:ignore>
         <input
             x-data="{
-                value: @entangle($attributes->wire('model')).defer,
+                value: $wire.entangle('{{ $attributes->wire('model')->value() }}').defer,
                 pikaday: null
             }"
             x-init='
@@ -23,7 +23,7 @@
                 pikaday.setDate(value)
             '
             type="text"
-            id="{{ $field->name }}"
+            id="{{ $field->id($_instance) }}"
             name="{{ $field->name }}"
             value="{{ $field->value ?? '' }}"
             placeholder="{{ $field->placeholder }}"

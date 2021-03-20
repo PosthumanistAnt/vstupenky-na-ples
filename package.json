@@ -16,7 +16,9 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
-        "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2"
+        "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
+        "ts-loader": "^8.0.18",
+        "typescript": "^4.2.3"
     },
     "dependencies": {
         "@leanadmin/wire-replace": "^0.1.3",

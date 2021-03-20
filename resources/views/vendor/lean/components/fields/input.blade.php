@@ -8,7 +8,7 @@
     </span>
 @elseif($field->action->write())
     <input
-        id="{{ $field->name }}"
+        id="{{ $field->id($_instance) }}"
         type="{{ $field->type }}"
         value="{{ $field->value }}"
         placeholder="{{ $field->placeholder }}"

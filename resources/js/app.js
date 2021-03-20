@@ -1,2 +1,2 @@
 require('./bootstrap');
-require('fabric/dist/fabric')
+require('fabric/dist/fabric');

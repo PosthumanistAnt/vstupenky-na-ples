@@ -26,7 +26,7 @@
                 {{ $slot }}
             </button>
 
-            <button type="button" class="{{ $class }} focus:ring-offset-0 border-l border-none border-gray-300  rounded-r-md rounded-none" @click="showOptions = ! showOptions">
+            <button type="button" class="{{ $class }} focus:ring-offset-0 border-l border-none border-gray-300 rounded-r-md rounded-none" @click="showOptions = ! showOptions">
                 @svg('heroicon-o-chevron-down', ['class' => 'h-5 w-5'])
             </button>
         </span>
