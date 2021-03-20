@@ -19,7 +19,7 @@ class OrderResource extends LeanResource
 
     public static string $title = 'code';
     public static string $icon = 'heroicon-o-ticket';
-    public static int $resultsPerPage;
+    public static int $resultsPerPage = 10;
 
     public static array $lang = [
         // 'create.submit' => 'Create Order',

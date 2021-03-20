@@ -18,7 +18,7 @@ class OrderStateResource extends LeanResource
 
     public static string $title = 'id';
     public static string $icon = 'heroicon-o-ticket';
-    public static int $resultsPerPage;
+    public static int $resultsPerPage = 10;
 
     public static array $lang = [
         // 'create.submit' => 'Create OrderState',

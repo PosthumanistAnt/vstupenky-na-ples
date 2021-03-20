@@ -19,7 +19,7 @@ class MessageResource extends LeanResource
 
     public static string $title = 'title';
     public static string $icon = 'heroicon-o-annotation';
-    public static int $resultsPerPage;
+    public static int $resultsPerPage = 10;
 
     public static array $lang = [
         // 'create.submit' => 'Create Message',
