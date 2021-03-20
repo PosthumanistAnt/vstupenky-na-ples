@@ -17,7 +17,6 @@ class CreateSeatsTable extends Migration
             $table->id();
             $table->integer('number')->unique();
             $table->string('description')->nullable();
-            $table->integer('table_position');
             $table->unsignedBigInteger('table_id');
             $table->foreign('table_id')->references('id')->on('tables');
             $table->unsignedBigInteger('seat_type_id');

@@ -20,7 +20,7 @@ class SeatTypeResource extends LeanResource
         'price',
     ];
 
-    public static string $title = 'id';
+    public static string $title = 'type';
     public static string $icon = 'heroicon-o-ticket';
     public static int $resultsPerPage = 10;
 

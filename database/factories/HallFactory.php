@@ -23,8 +23,6 @@ class HallFactory extends Factory
     {
         return [
             'location' => $this->faker->cityPrefix(),
-            'table_columns' => $this->faker->numberBetween(10, 30),
-            'table_rows' => $this->faker->numberBetween(10, 30),
             'description' => $this->faker->sentence(5),
         ];
     }

@@ -9,6 +9,17 @@ class SeatType extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'type',
+        'description',
+        'price',
+    ];
+
     public $timestamps = false;
     
     public function seats(){

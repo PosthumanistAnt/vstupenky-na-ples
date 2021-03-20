@@ -23,6 +23,15 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * The attributes that are guarded.
+     *
+     * @var array
+     */
+    protected $guarded = [
+        'is_admin',
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array

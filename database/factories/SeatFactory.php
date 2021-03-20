@@ -24,7 +24,6 @@ class SeatFactory extends Factory
         return [
             'number' => $this->faker->unique()->numberBetween(0,500),
             'description' => $this->faker->sentence(2),
-            'table_position' => $this->faker->numberBetween(0,4),
         ];
     }
 }

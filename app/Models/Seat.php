@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Seat extends Model
 {
     use HasFactory;
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'number',
+        'description',
+        'table_id',
+        'seat_type_id',
+    ];
 
     public $timestamps = false;
     

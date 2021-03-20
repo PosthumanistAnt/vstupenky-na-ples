@@ -19,7 +19,7 @@ class HallResource extends LeanResource
         'description',
     ];
 
-    public static string $title = 'id';
+    public static string $title = 'location';
     public static string $icon = 'heroicon-o-office-building';
     public static int $resultsPerPage = 10;
 

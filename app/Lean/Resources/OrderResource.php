@@ -17,7 +17,7 @@ class OrderResource extends LeanResource
         'code',
     ];
 
-    public static string $title = 'code';
+    public static string $title = 'id';
     public static string $icon = 'heroicon-o-ticket';
     public static int $resultsPerPage = 10;
 
