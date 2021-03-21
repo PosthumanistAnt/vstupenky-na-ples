@@ -18,7 +18,7 @@
         var tableWidth = 50;
 
         var panning = false;
-        
+
         // change in position of seat depending on its index in table
         var positionsList = [
             {
@@ -135,20 +135,6 @@
             handleTableMove( e );
         });
 
-        function handleTableMove( e ) {
-            var selectedObject = e.target;
-
-            if (selectedObject.type === 'table') {
-                setCorrectSeatGroupsPosition( selectedObject );
-            }
-
-            if (selectedObject.type === 'activeSelection') {
-                selectedObject._objects.forEach(table =>
-                    setCorrectSeatGroupsPosition( table, selectedObject )
-                );
-            }
-        }
-
         // push results from DB to js arrays
         @foreach ( $tables as $table )
             var table = new fabric.Rect({
@@ -201,6 +187,20 @@
             @endforeach
         @endforeach
 
+        function handleTableMove( e ) {
+            var selectedObject = e.target;
+
+            if (selectedObject.type === 'table') {
+                setCorrectSeatGroupsPosition( selectedObject );
+            }
+
+            if (selectedObject.type === 'activeSelection') {
+                selectedObject._objects.forEach(table =>
+                    setCorrectSeatGroupsPosition( table, selectedObject )
+                );
+            }
+        }
+
         function setCorrectSeatGroupsPosition( table, group ) {
             table.seatGroups.forEach( function ( seatGroup, seatGroupIndex ) {       
                 var evaluatedSeatGroupPosition = evaluateSeatGroupPosition( seatGroupIndex, table, group );
@@ -208,7 +208,7 @@
                 seatGroup.top = evaluatedSeatGroupPosition.y;
             });
         }
-
+        
         function evaluateSeatGroupPosition(seatIndex, table, group = null) {
 
             var groupOffset = {
