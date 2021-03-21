@@ -1,9 +1,10 @@
 <div class="h-screen w-auto">    
     <div class="h-1/3 w-auto m-4 flex justify-between p-5">
-        <a href="{{ url('admin/tables/create') }}" class="p-5 bg-purple-600 text-white">Přidat stůl</a>
-        <button class="p-5 bg-purple-600 text-white" onclick="duplicateSelection()">Duplikovat výběr</button>
-        <button class="p-5 bg-purple-600 text-white">Uložit do databáze</button>
+        <a href="{{ url('admin/tables/create') }}" class="p-5 bg-brand-600 text-white">Přidat stůl</a>
+        <button class="p-5 bg-brand-600 text-white" onclick="duplicateSelection()">Duplikovat výběr</button>
+        <button class="p-5 bg-brand-600 text-white">Uložit do databáze</button>
     </div>
+
     <div class="my-12 h-full">
         <div id="canvas-wrapper" class="w-full h-screen" wire:ignore>
             <canvas id="canvas"></canvas>
