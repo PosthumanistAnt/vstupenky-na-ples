@@ -206,6 +206,7 @@
                 var evaluatedSeatGroupPosition = evaluateSeatGroupPosition( seatGroupIndex, table, group );
                 seatGroup.left = evaluatedSeatGroupPosition.x;
                 seatGroup.top = evaluatedSeatGroupPosition.y;
+                seatGroup.setCoords();
             });
         }
         
