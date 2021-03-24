@@ -5,6 +5,14 @@
         <button class="p-5 bg-brand-600 text-white">Uložit do databáze</button>
     </div>
 
+    <div>
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+    </div>
+
     <div class="my-12 h-full">
         <div id="canvas-wrapper" class="w-full h-screen" wire:ignore>
             <canvas id="canvas"></canvas>

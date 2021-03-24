@@ -19,6 +19,8 @@ class TableLayoutPage extends LeanPage
         ]);
         
         $movedTable->save();
+
+        session()->flash('message', 'změna pozice - ' . $updatedTableAttributes["id"] . ' ' . $updatedTableAttributes["x"] . ' ' . $updatedTableAttributes["y"]);
     }
     public static function label(): string
     {
