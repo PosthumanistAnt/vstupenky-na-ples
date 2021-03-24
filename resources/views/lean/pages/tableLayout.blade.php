@@ -144,6 +144,7 @@
                 height: tableWidth,
                 type: 'table',
                 hasControls: false,
+                tableId: {{ $table->id }},
                 fill: "black",
                 seatGroups: [],
             });
@@ -190,15 +191,39 @@
         function handleTableMove( e ) {
             var selectedObject = e.target;
 
-            if (selectedObject.type === 'table') {
+            if ( selectedObject.type === 'table' ) {
                 setCorrectSeatGroupsPosition( selectedObject );
+                if ( e.e.type === "mouseup") {
+                    emitPositionChangeToLivewire( selectedObject );
+                }
             }
 
-            if (selectedObject.type === 'activeSelection') {
+            if ( selectedObject.type === 'activeSelection' ) {
                 selectedObject._objects.forEach(table =>
-                    setCorrectSeatGroupsPosition( table, selectedObject )
+                    setCorrectSeatGroupsPosition( table, selectedObject ),
+                    emitPositionChangeToLivewire( table, selectedObject )
                 );
             }
+        }
+
+        function emitPositionChangeToLivewire( table, group = null) {
+            var groupOffset = {
+                x: 0,
+                y: 0
+            };
+            
+            if( group ){
+                groupOffset.x = group.aCoords.tl.x + group.width/2;
+                groupOffset.y = group.aCoords.tl.y + group.height/2;
+            }
+            
+            var movedTableAttributes = {
+                'id': table.tableId,
+                'x': table.left + groupOffset.x,
+                'y': table.top + groupOffset.y
+            };
+
+            livewire.emit('tablePositionUpdated', movedTableAttributes );
         }
 
         function setCorrectSeatGroupsPosition( table, group ) {
