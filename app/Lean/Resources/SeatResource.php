@@ -32,6 +32,7 @@ class SeatResource extends LeanResource
     public static function fields(): array
     {
         return [
+            ID::make('id'),
 
             Text::make('description')->label(__('Description')),
             Number::make('number')->label(__('Number')),
