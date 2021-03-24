@@ -4,18 +4,18 @@
 
     lang(string) {
         if (this.resource) {
-            return window.Lean.trans(this.resource, 'delete.' + string);
+            return Lean.resources[this.resource].trans('delete.' + string);
         }
     },
 
     cancel() {
-        window.Lean.modalManager.back();
+        Lean.modalManager.back();
     },
 
     confirm() {
         this.$wire.delete(this.resource, this.model);
 
-        window.Lean.modalManager.back();
+        Lean.modalManager.back();
     },
 })" class="sm:flex sm:items-start" wire:ignore.self>
     <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">

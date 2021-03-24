@@ -10,11 +10,11 @@
 
 @php($brand = Lean::config('theme'))
 <style>
-    [x-cloak] {
+    .lean [x-cloak] {
         display: none;
     }
 
-    :root {
+    .lean {
         --font-family-sans: {!! Lean::config('font.family') !!};
 
         @foreach([

@@ -1,6 +1,5 @@
 @props([
     'field',
-    'errors' => [],
 ])
 
 <div class="flex flex-col sm:items-baseline sm:flex-row sm:space-x-4 space-y-1 py-4">
@@ -11,9 +10,9 @@
     <div class="mt-1 sm:mt-0 sm:w-3/4 w-full">
         {{ $slot }}
 
-        @if ($errors)
+        @if ($field->errors)
             <div class="mt-1 text-red-500 text-sm">
-                @foreach($errors as $error)
+                @foreach($field->errors as $error)
                     <p>{{ $error }}</p>
                 @endforeach
             </div>

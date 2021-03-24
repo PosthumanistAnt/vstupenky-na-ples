@@ -1,24 +1,21 @@
 <div x-data="Alpine.component('modalAction')('confirm-leave', {
-    resource: '',
     stay: null,
     leave: null,
 
     lang(string) {
-        if (this.resource) {
-            return window.Lean.trans(this.resource, 'confirm-leave.' + string);
-        }
+        return Lean.trans('actions.confirm-leave', string)
     },
 
     cancel() {
         this.stay();
 
-        window.Lean.modalManager.back();
+        Lean.modalManager.back();
     },
 
     confirm() {
         this.leave();
 
-        window.Lean.modalManager.back();
+        Lean.modalManager.back();
     },
 })" class="sm:flex sm:items-start" wire:ignore.self>
     <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">

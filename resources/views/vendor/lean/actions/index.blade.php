@@ -1,13 +1,14 @@
-<div class="flex flex-col" @leanAction('index', $this->resource)>
-    <div class="flex flex-row justify-between">
-        <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-200 hidden sm:inline">{{ $title }}</h1>
-        <x-lean::button x-data="Alpine.component('modalLink')('create', '{{ $this->resource }}')" design="outline" class="hidden sm:inline-flex" href="{{ $this->createRoute }}" icon="heroicon-o-plus">
+<div class="flex flex-col" @leanAction($this)>
+    {{-- todo also do this for all the other actions --}}
+    <div class="{{ $this->headerStyles() }} flex-row justify-between">
+        <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-200 {{ $this->headerStyles('title', 'inline') }}">{{ $title }}</h1>
+        <x-lean::button x-data="Alpine.component('modalLink')('create', '{{ $this->resource }}', {{ json_encode($modals) }})" design="outline" :class="$this->headerStyles('buttons', 'inline-flex')" href="{{ $this->createRoute }}" icon="heroicon-o-plus">
             {{ $this->resource()::trans('index.new') }}
         </x-lean::button>
     </div>
 
     <div class="mt-1">
-        <div class="mt-1 relative rounded-md ">
+        <div class="mt-1 relative rounded-md">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 @svg('heroicon-o-search', ['class' => 'h-5 w-5 text-gray-400'])
             </div>
@@ -106,8 +107,8 @@
                             class="px-6 py-3 flex justify-end space-x-2 font-normal"
                             wire:loading.class="opacity-50 pointer-events-none"
                         >
-                            {{-- Actions --}}
-                            @if(! $selected->isEmpty())
+                            {{-- Bulk actions --}}
+                            @if($bulkActions && ! $selected->isEmpty())
                                 {{-- Edit --}}
                                 <div class="">
                                     <x-lean::modal>
@@ -236,7 +237,7 @@
                         <td class="px-6 py-4 whitespace-no-wrap flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3">
                             {{-- Show --}}
                             <a
-                                x-data="Alpine.component('modalLink')('show', $model)"
+                                x-data="Alpine.component('modalLink')('show', $model, {{ json_encode($modals) }})"
                                 href="{{ route('lean.resource.show', ['resource' => $resource, 'id' => $result->getKey()]) }}"
                                 class="flex items-center text-gray-500 transition dark:text-gray-400 group"
                             >
@@ -246,30 +247,32 @@
                                 </span>
                             </a>
 
-                            {{-- Edit --}}
-                            <a
-                                x-data="Alpine.component('modalLink')('edit', $model)"
-                                href="{{ route('lean.resource.edit', ['resource' => $resource, 'id' => $result->getKey()]) }}"
-                                class="flex items-center text-gray-500 transition dark:text-gray-400 group"
-                            >
-                                @svg('heroicon-o-pencil-alt', ['class' => 'transition w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-brand-400 dark:group-hover:text-brand-500'])
-                                <span class="ml-1 text-sm group-hover:text-brand-600 dark:group-hover:text-brand-400 transition">
-                                    {{ $this->resource()::trans('index.edit') }}
-                                </span>
-                            </a>
+                            @if($writeActions)
+                                {{-- Edit --}}
+                                <a
+                                    x-data="Alpine.component('modalLink')('edit', $model, {{ json_encode($modals) }})"
+                                    href="{{ route('lean.resource.edit', ['resource' => $resource, 'id' => $result->getKey()]) }}"
+                                    class="flex items-center text-gray-500 transition dark:text-gray-400 group"
+                                >
+                                    @svg('heroicon-o-pencil-alt', ['class' => 'transition w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-brand-400 dark:group-hover:text-brand-500'])
+                                    <span class="ml-1 text-sm group-hover:text-brand-600 dark:group-hover:text-brand-400 transition">
+                                        {{ $this->resource()::trans('index.edit') }}
+                                    </span>
+                                </a>
 
-                            {{-- Delete --}}
-                            <a
-                                href="#"
-                                x-data="{}"
-                                @click="$model.delete()"
-                                class="flex items-center text-gray-500 transition dark:text-gray-400 group cursor-pointer"
-                            >
-                                @svg('heroicon-o-trash', ['class' => 'transition w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-red-400 dark:group-hover:text-red-500'])
-                                <span class="ml-1 text-sm group-hover:text-red-600 dark:group-hover:text-red-400 transition">
-                                    {{ $this->resource()::trans('index.delete') }}
-                                </span>
-                            </a>
+                                {{-- Delete --}}
+                                <a
+                                    href="#"
+                                    x-data="{}"
+                                    @click="$model.delete()"
+                                    class="flex items-center text-gray-500 transition dark:text-gray-400 group cursor-pointer"
+                                >
+                                    @svg('heroicon-o-trash', ['class' => 'transition w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-red-400 dark:group-hover:text-red-500'])
+                                    <span class="ml-1 text-sm group-hover:text-red-600 dark:group-hover:text-red-400 transition">
+                                        {{ $this->resource()::trans('index.delete') }}
+                                    </span>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

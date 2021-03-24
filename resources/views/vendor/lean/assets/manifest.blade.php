@@ -10,7 +10,7 @@
             'type' => 'image/png',
         ])->values()) !!},
 
-    "scope": "{{ app('router')->getRoutes()->getByName('lean.home')->getPrefix() }}/",
+    "scope": "{{ Lean::rootUrl() }}/",
     "start_url": "{{ Lean::$homeUrl }}",
     "display": "{{ Lean::config('manifest.display') }}",
 

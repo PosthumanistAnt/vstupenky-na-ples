@@ -1,4 +1,4 @@
-<div class="flex flex-col" @leanAction('show', $this->resource) @leanModel($this->resource(), $this->fields)>
+<div class="flex flex-col" @leanAction($this) @leanModel($this->resource(), $this->fields)>
     <div class="hidden sm:flex flex-row justify-between flex-wrap">
         <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{ $title }}</h1>
 

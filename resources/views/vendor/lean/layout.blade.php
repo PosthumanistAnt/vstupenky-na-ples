@@ -6,8 +6,6 @@
         <x-lean::layout.scripts for="head" />
         <x-lean::layout.darkmode for="head" />
         <x-lean::layout.turbolinks for="head" />
-        <script src="{{ asset('js/app.js') }}"></script>
-        </script>
     </head>
 
     <body class="font-sans antialiased">
@@ -18,16 +16,18 @@
                 </x-slot>
             </x-lean::navigation.sidebar>
             <div class="min-h-full w-full flex justify-center px-4 py-2 sm:py-6 sm:px-8 overflow-hidden">
-                <main class="w-full {{ $maxLayoutWidth ?? 'sm:max-w-7xl' }}">
+                <main class="w-full {{ Lean::$layoutWidth ?? 'sm:max-w-7xl' }}">
                     @yield('content')
                 </main>
             </div>
         </div>
 
+        {{-- todo remove 'layout' from the names of these --}}
         <x-lean::layout.notifications />
         <livewire:lean.layout.modal-manager :prefetch="Lean::$prefetchedActions" />
         <x-lean::console-log />
 
+        {{-- todo run bootstrap lean on turbolinks visits --}}
         <x-lean::layout.scripts for="body" />
         <x-lean::layout.pwa for="body" />
         <x-lean::layout.turbolinks for="body" />

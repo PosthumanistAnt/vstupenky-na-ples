@@ -1,7 +1,7 @@
 {
-    "/lean.js": "/lean.js?id=ffd2af410ff45c5b0601",
-    "/service-worker.js": "/service-worker.js?id=1cd7caf2735cecb9eccd",
-    "/turbolinks.js": "/turbolinks.js?id=403e99f58bd62a7527f6",
-    "/livewire-turbolinks.js": "/livewire-turbolinks.js?id=80df4f8e465ad6b3ebe5",
-    "/lean.css": "/lean.css?id=1fd3bf4d8e86f99a7ea7"
+    "/lean.js": "/lean.js?id=5924abe7b14403c2835c",
+    "/service-worker.js": "/service-worker.js?id=eca0cc706abab450832a",
+    "/turbolinks.js": "/turbolinks.js?id=145285b905d826264a18",
+    "/turbolinks-adapter.js": "/turbolinks-adapter.js?id=5cbfd33e1816ca5aa6a2",
+    "/lean.css": "/lean.css?id=939c371e13cc19964c0e"
 }

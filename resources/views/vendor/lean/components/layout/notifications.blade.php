@@ -67,12 +67,11 @@
             delete this.pendingRemovals[index];
         },
     }'
-    x-init="window.LivewireLoaded ?
+    x-init="window.LivewireLoaded
+        ? setTimeout(() => { sessionMessages.forEach(message => { add(message) }) }, {!! $loadDelay !!})
+        : document.addEventListener('livewire:load', () => {
             setTimeout(() => { sessionMessages.forEach(message => { add(message) }) }, {!! $loadDelay !!})
-        :
-            document.addEventListener('livewire:load', () => {
-                setTimeout(() => { sessionMessages.forEach(message => { add(message) }) }, {!! $loadDelay !!})
-            })
+        })
     "
     x-on:lean-notify.window="add($event.detail)"
     class="

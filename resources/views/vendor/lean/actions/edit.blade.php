@@ -1,4 +1,4 @@
-<form class="flex flex-col" wire:submit.prevent="submit" @leanAction('edit', $this->resource) @leanModel($this->resource(), $this->fields)>
+<form class="flex flex-col" wire:submit.prevent="submit" @leanAction($this) @leanModel($this->resource(), $this->fields)>
     <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-300 hidden sm:inline">{{ $title }}</h1>
 
     <div class="sm:divide-y divide-solid divide-gray-200 dark:divide-gray-700">

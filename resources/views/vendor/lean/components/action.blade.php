@@ -8,6 +8,7 @@
 ])
 
 @php($resource ??= $data['resource'] ?? null)
+@php($attributes = collect($attributes->getAttributes())->mapWithKeys(fn ($value, $key) => [Str::camel($key) => $value])->toArray())
 
 @if($class)
     <div class="{{ $class }}">
@@ -16,13 +17,13 @@
 @if($resource)
     @livewire(Lean::getResource($resource)::getAction($action), array_merge([
         'resource' => $resource,
-    ], $attributes->getAttributes(), $data))
+    ], $attributes, $data))
 @else
-    @livewire('lean.' . $action, array_merge($attributes->getAttributes(), $data))
+    @livewire('lean.' . $action, array_merge($attributes, $data))
 @endif
 
 @if($refresh)
-    @forgetLastChild($parent ?? $this ?? $_instance)
+    @forgetLastChild($parent ?? (isset($this) ? $this : $_instance) ?? null)
 @endif
 
 @if($class)
