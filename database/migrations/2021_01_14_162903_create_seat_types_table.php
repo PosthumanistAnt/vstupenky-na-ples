@@ -17,6 +17,7 @@ class CreateSeatTypesTable extends Migration
             $table->id();
             $table->string('type');
             $table->string('description')->nullable();
+            $table->string('color')->nullable();
             $table->integer('price');
         });
     }

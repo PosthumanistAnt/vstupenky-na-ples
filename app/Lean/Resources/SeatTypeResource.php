@@ -37,6 +37,7 @@ class SeatTypeResource extends LeanResource
 
             Text::make('type')->label(__('Type')),
             Text::make('description')->label(__('Description')),
+            Text::make('color')->label(__('Color')),
             Number::make('price')->label(__('Price')),
             HasMany::make('seats')->of(SeatResource::class)->label(__('Seats')),
         ];
