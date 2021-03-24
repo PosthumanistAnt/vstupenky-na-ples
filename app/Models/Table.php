@@ -18,7 +18,7 @@ class Table extends Model
         'description',
         'position_x',
         'position_y',
-        'hall',
+        'hall_id',
     ];
 
     public function seats(){
