@@ -207,10 +207,10 @@
             }
 
             if ( selectedObject.type === 'activeSelection' ) {
-                selectedObject._objects.forEach(table =>
+                selectedObject._objects.forEach( function ( table ) {
                     setCorrectSeatGroupsPosition( table, selectedObject ),
                     emitPositionChangeToLivewire( table, selectedObject )
-                );
+                });
             }
         }
 
