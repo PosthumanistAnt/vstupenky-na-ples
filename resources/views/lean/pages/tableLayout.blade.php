@@ -201,20 +201,22 @@
 
             if ( selectedObject.type === 'table' ) {
                 setCorrectSeatGroupsPosition( selectedObject );
-                if ( e.e.type === "mouseup") {
-                    emitPositionChangeToLivewire( selectedObject );
-                }
+                emitPositionChangeToLivewire( selectedObject, e.e.type );
             }
 
             if ( selectedObject.type === 'activeSelection' ) {
                 selectedObject._objects.forEach( function ( table ) {
                     setCorrectSeatGroupsPosition( table, selectedObject ),
-                    emitPositionChangeToLivewire( table, selectedObject )
+                    emitPositionChangeToLivewire( table, e.e.type, selectedObject)
                 });
             }
         }
 
-        function emitPositionChangeToLivewire( table, group = null) {
+        function emitPositionChangeToLivewire( table, eventType, group = null) {
+            if ( eventType !== "mouseup") {
+                return;
+            }
+
             var groupOffset = {
                 x: 0,
                 y: 0
