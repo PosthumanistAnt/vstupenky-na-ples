@@ -23,6 +23,6 @@ class SeatType extends Model
     public $timestamps = false;
     
     public function seats(){
-        $this->hasMany(Seat::class);
+        return $this->hasMany(Seat::class);
     }
 }
