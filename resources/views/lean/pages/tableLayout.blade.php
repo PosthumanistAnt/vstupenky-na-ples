@@ -126,11 +126,13 @@
         });
         
         // clicking on a seat and adding it to cart
-        canvas.on( 'mouse:down', function(opt) {
-            if( opt.target && opt.target.seatId !== undefined ){
-                var seat = opt.target;
-                seat.set("fill", 'green');
-            } 
+        canvas.on( 'mouse:down', function( e ) {
+            if( e.target?.type === "seatGroup") {
+                Lean.modal( 'edit', {
+                    'resource': 'seats',
+                    'model': e.target.seatId
+                });
+            }
         });
 
         // moving seats when table is moving
@@ -187,6 +189,7 @@
                     left: groupPosition.x,
                     top: groupPosition.y,
                     selectable: false,
+                    seatId: {{ $seat->id }},
                     type: 'seatGroup',
                 });
 
