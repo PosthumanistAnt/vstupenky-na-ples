@@ -2,7 +2,7 @@
     <div class="h-1/3 w-auto m-4 flex justify-between p-5" x-data>
         <button class="p-5 bg-brand-600 text-white" @click="Lean.modal('create', {'resource': 'tables'})">Přidat stůl</a>
         <button class="p-5 bg-brand-600 text-white" onclick="duplicateSelection()">Duplikovat výběr</button>
-        <button class="p-5 bg-brand-600 text-white">Uložit do databáze</button>
+        {{-- <button class="p-5 bg-brand-600 text-white">Uložit do databáze</button> --}}
     </div>
 
     <div>
