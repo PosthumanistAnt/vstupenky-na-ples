@@ -1,7 +1,7 @@
 <?php
 
-use App\Mail\JustTesting;
 use Illuminate\Http\Request;
+use App\Http\Livewire\Home;
 use App\Http\Livewire\Login;
 use App\Http\Livewire\Register;
 use App\Http\Livewire\SeatPicker;
@@ -27,12 +27,12 @@ Route::middleware(['guest'])->group(function() {
 });
 
 Route::middleware(['auth', 'verified'])->group(function() {
-    Route::get('/', SeatPicker::class);
+    Route::get('/seatpicker', SeatPicker::class);
 });
 
 Route::middleware(['admin'])->group(function() {
     Lean::routes([
-        'home' => '/admin/p/home',
+        'home' => '/admin/p/tableLayout',
     ]);
 });
 
@@ -43,11 +43,6 @@ Route::get('/logout', function(Request $request) {
     $request->session()->regenerateToken();
     return redirect('/register');
 })->name('logout');
-
-Route::get('/send-mail', function () {
-    Mail::to('newuser@example.com')->send(new JustTesting()); 
-    return 'A message has been sent to Mailtrap!';
-});
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
@@ -66,3 +61,5 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Email byl odeslán!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('/', Home::class)->name('home');
