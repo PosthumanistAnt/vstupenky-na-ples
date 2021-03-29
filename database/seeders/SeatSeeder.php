@@ -6,6 +6,7 @@ use App\Models\Seat;
 use App\Models\SeatType;
 use App\Models\Table;
 use App\Models\Hall;
+use App\Models\Event;
 use Illuminate\Database\Seeder;
 
 class SeatSeeder extends Seeder
@@ -17,7 +18,10 @@ class SeatSeeder extends Seeder
      */
     public function run()
     {
-        $hall = Hall::factory()->create();
+        $event = Event::factory()->create();
+
+        $hall = Hall::factory()->for($event)->create();
+
         for ($i=0; $i < 2; $i++) { 
             $seatType = SeatType::factory()->create();
             for ($j=0; $j < 4; $j++) { 
