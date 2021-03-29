@@ -22,7 +22,7 @@ class Hall extends Model
 
     public $timestamps = false;
 
-    public function seatType(){
+    public function event(){
         return $this->belongsTo(Event::class);
     }
 }
