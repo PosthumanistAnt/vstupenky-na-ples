@@ -14,6 +14,15 @@
     @livewireStyles
 </head>
 <body class="bg-gray-900 text-gray-200">
+    <div class="p-6 fixed right-2 top-2 text-center text-xl bg-gradient-to-b from-green-900">
+        @auth
+            {{ Auth::user()->name }}
+        @endauth
+
+        @guest
+            Nepřihlášen
+        @endguest
+    </div>
     <div class="container">
         {{ $slot }}
     </div>
