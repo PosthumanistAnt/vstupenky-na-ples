@@ -21,4 +21,6 @@ class Event extends Model
         'location',
         'description',
     ];
+
+    protected $dates = ['reservation_start', 'reservation_end', 'ball_start'];
 }
