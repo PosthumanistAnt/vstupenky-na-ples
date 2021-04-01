@@ -4,8 +4,9 @@ namespace App\Lean\Resources;
 
 use Lean\Fields\ID;
 use Lean\Fields\Text;
-use Lean\Fields\Relations\HasMany;
 use Lean\LeanResource;
+use Lean\Fields\Pikaday;
+use Lean\Fields\Relations\HasMany;
 
 class MessageTypeResource extends LeanResource
 {

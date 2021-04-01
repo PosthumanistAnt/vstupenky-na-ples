@@ -4,9 +4,10 @@ namespace App\Lean\Resources;
 
 use Lean\Fields\ID;
 use Lean\Fields\Text;
+use Lean\LeanResource;
+use Lean\Fields\Pikaday;
 use Lean\Fields\Relations\HasMany;
 use Lean\Fields\Relations\BelongsTo;
-use Lean\LeanResource;
 
 class HallResource extends LeanResource
 {

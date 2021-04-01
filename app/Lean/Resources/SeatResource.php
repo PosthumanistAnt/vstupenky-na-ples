@@ -3,9 +3,9 @@
 namespace App\Lean\Resources;
 
 use Lean\Fields\ID;
-use Lean\Fields\Pikaday;
 use Lean\Fields\Text;
 use Lean\Fields\Number;
+use Lean\Fields\Pikaday;
 use Lean\Fields\Relations\BelongsTo;
 use Lean\LeanResource;
 

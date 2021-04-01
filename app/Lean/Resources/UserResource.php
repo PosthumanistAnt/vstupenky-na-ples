@@ -2,13 +2,13 @@
 
 namespace App\Lean\Resources;
 
-use Lean\Fields\Email;
 use Lean\Fields\ID;
-use Lean\Fields\Password;
+use Lean\Fields\Text;
+use Lean\Fields\Email;
+use Lean\LeanResource;
 use Lean\Fields\Boolean;
 use Lean\Fields\Pikaday;
-use Lean\Fields\Text;
-use Lean\LeanResource;
+use Lean\Fields\Password;
 
 class UserResource extends LeanResource
 {
