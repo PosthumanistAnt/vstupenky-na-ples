@@ -1,11 +1,5 @@
 <div class="h-screen pb-4 w-auto">    
-    <div class="w-full xl:flex xl:justify-between text-center">
-        <button class="btn btn-secondary" wire:click="logout"> Odhlásit </button>
-        @admin
-            <button class="btn btn-secondary" wire:click="admin"> Admin </button>
-        @endadmin
-    </div>
-    <div class="xl:flex my-12 h-full">
+    <div class="xl:flex my-12 h-full mt-60">
         <div id="canvas-wrapper" class="w-full xl:w-2/3 h-full xl:h-2/3 pl-4" wire:ignore>
             <canvas id="canvas"></canvas>
         </div>

@@ -14,15 +14,22 @@
     @livewireStyles
 </head>
 <body class="bg-gray-900 text-gray-200">
-    <div class="p-6 fixed right-2 top-2 text-center text-xl bg-gradient-to-b from-green-900">
+    <div class="mt-8 absolute left-0 top-0">
         @auth
-            {{ Auth::user()->name }}
+            <a href="{{ route('logout') }}" class="btn btn-secondary"> Odhlásit </a>
+        @endauth
+    </div>
+    
+    <div class="mt-8 absolute right-0 top-0">
+        @auth
+            <span class="p-6 text-center text-xl bg-gradient-to-b from-green-900"> {{ Auth::user()->name }} </span>
         @endauth
 
         @guest
-            Nepřihlášen
+            <span class="p-6 text-center text-xl bg-gradient-to-b from-green-900"> Nepřihlášen </span>
         @endguest
     </div>
+
     <div class="container">
         {{ $slot }}
     </div>
