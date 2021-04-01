@@ -25,7 +25,7 @@ class Login extends Component
     {
         $this->validate();
         if(Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            return redirect('/');
+            return redirect('/seat-picker');
         } 
         $this->credentials_error = "Špatný email nebo heslo";
     }
