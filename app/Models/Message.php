@@ -18,8 +18,6 @@ class Message extends Model
         'title',
         'message',
         'message_type_id',
-        'created_at',
-        'updated_at',
     ];
 
     protected $guarded = [];

@@ -20,9 +20,7 @@ class Seat extends Model
         'table_id',
         'seat_type_id',
     ];
-
-    public $timestamps = false;
-    
+        
     public function table(){
         return $this->belongsTo(Table::class);
     }

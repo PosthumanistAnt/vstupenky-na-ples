@@ -17,8 +17,6 @@ class MessageType extends Model
     protected $fillable = [
         'type',
     ];
-
-    public $timestamps = false;
     
     public function messages(){
         return $this->hasMany(Message::class);

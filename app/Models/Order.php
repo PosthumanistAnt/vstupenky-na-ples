@@ -18,8 +18,6 @@ class Order extends Model
         'code',
         'user_id',
         'state_id',
-        'created_at',
-        'updated_at',
     ];
 
     public function user(){

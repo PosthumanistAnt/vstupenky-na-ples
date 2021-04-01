@@ -32,6 +32,9 @@ class MessageTypeResource extends LeanResource
             ID::make('id'),
             Text::make('type')->label(__('Type')),
             HasMany::make('messages')->of(MessageResource::class),
+
+            Pikaday::make('updated_at')->display('show', 'edit'),
+            Pikaday::make('created_at')->disabled()->display('show'),
         ];
     } 
 

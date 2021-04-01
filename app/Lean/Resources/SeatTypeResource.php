@@ -40,6 +40,9 @@ class SeatTypeResource extends LeanResource
             Text::make('color')->optional()->label(__('Color')),
             Number::make('price')->label(__('Price')),
             HasMany::make('seats')->of(SeatResource::class)->label(__('Seats')),
+
+            Pikaday::make('updated_at')->display('show', 'edit'),
+            Pikaday::make('created_at')->disabled()->display('show'),
         ];
     }
 

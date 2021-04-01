@@ -35,8 +35,7 @@ class OrderResource extends LeanResource
             Text::make('code')->label(__('Code')),
             BelongsTo::make('user')->parent(UserResource::class)->label(__('User')),
             BelongsTo::make('state')->parent(OrderStateResource::class)->label(__('Order state')),
-
-
+            
             Pikaday::make('updated_at')->display('show', 'edit'),
             Pikaday::make('created_at')->disabled()->display('show'),
         ];

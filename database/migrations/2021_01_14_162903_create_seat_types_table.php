@@ -19,6 +19,7 @@ class CreateSeatTypesTable extends Migration
             $table->string('description')->nullable();
             $table->string('color')->nullable();
             $table->integer('price');
+            $table->timestamps();
         });
     }
 

@@ -21,8 +21,6 @@ class Hall extends Model
         'event_id'
     ];
 
-    public $timestamps = false;
-
     public function tables(){
         return $this->hasMany(Table::class);
     }

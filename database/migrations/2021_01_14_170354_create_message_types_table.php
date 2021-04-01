@@ -16,6 +16,7 @@ class CreateMessageTypesTable extends Migration
         Schema::create('message_types', function (Blueprint $table) {
             $table->id();
             $table->string('type');
+            $table->timestamps();
         });
     }
 

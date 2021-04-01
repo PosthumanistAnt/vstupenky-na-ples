@@ -39,6 +39,8 @@ class SeatResource extends LeanResource
             BelongsTo::make('table')->parent(TableResource::class)->label(__('Table')),
             BelongsTo::make('seatType')->parent(SeatTypeResource::class)->label(__('Seat type')),
             
+            Pikaday::make('updated_at')->display('show', 'edit'),
+            Pikaday::make('created_at')->disabled()->display('show'),
         ];
     }
 

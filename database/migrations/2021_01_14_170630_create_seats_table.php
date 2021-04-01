@@ -21,6 +21,7 @@ class CreateSeatsTable extends Migration
             $table->foreign('table_id')->references('id')->on('tables');
             $table->unsignedBigInteger('seat_type_id');
             $table->foreign('seat_type_id')->references('id')->on('seat_types');
+            $table->timestamps();
         });
     }
 

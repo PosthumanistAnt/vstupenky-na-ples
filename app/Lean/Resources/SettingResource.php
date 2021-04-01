@@ -33,6 +33,9 @@ class SettingResource extends LeanResource
 
             Text::make('setting')->label(__('setting')),
             Text::make('value')->label(__('value')),
+
+            Pikaday::make('updated_at')->display('show', 'edit'),
+            Pikaday::make('created_at')->disabled()->display('show'),
         ];
     }
 

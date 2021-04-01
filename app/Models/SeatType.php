@@ -20,8 +20,6 @@ class SeatType extends Model
         'color',
         'price',
     ];
-
-    public $timestamps = false;
     
     public function seats(){
         return $this->hasMany(Seat::class);

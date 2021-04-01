@@ -37,6 +37,9 @@ class HallResource extends LeanResource
             Text::make('description')->label(__('Description')),
             BelongsTo::make('event')->parent(EventResource::class)->label(__('Event')),
             HasMany::make('tables')->of(TableResource::class)->label(__('Tables')),
+
+            Pikaday::make('updated_at')->display('show', 'edit'),
+            Pikaday::make('created_at')->disabled()->display('show'),
         ];
     }
 

@@ -20,6 +20,7 @@ class CreateHallsTable extends Migration
             $table->string('image')->nullable();
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events');
+            $table->timestamps();
         });
     }
 
