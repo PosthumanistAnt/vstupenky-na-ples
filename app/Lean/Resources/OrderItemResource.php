@@ -3,14 +3,13 @@
 namespace App\Lean\Resources;
 
 use Lean\Fields\ID;
-use Lean\Fields\Text;
 use Lean\LeanResource;
 use Lean\Fields\Pikaday;
 use Lean\Fields\Relations\BelongsTo;
 
-class ReservedSeatResource extends LeanResource
+class OrderItemResource extends LeanResource
 {
-    public static string $model = \App\Models\ReservedSeat::class;
+    public static string $model = \App\Models\OrderItem::class;
 
     public static array $searchable = [
         'id',
@@ -41,11 +40,11 @@ class ReservedSeatResource extends LeanResource
 
     public static function label(): string
     {
-        return __('ReservedSeat');
+        return __('OrderItem');
     }
 
     public static function pluralLabel(): string
     {
-        return __('ReservedSeats');
+        return __('OrderItems');
     }
 }
