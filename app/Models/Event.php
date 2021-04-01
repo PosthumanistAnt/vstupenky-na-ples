@@ -23,4 +23,8 @@ class Event extends Model
     ];
 
     protected $dates = ['reservation_start', 'reservation_end', 'ball_start'];
+
+    public function halls(){
+        return $this->hasMany(Hall::class);
+    }
 }

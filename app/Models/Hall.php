@@ -17,10 +17,15 @@ class Hall extends Model
     protected $fillable = [
         'location',
         'description',
-        'updated_at',
+        'image',
+        'event_id'
     ];
 
     public $timestamps = false;
+
+    public function tables(){
+        return $this->hasMany(Table::class);
+    }
 
     public function event(){
         return $this->belongsTo(Event::class);

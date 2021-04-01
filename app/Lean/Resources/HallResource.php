@@ -3,10 +3,9 @@
 namespace App\Lean\Resources;
 
 use Lean\Fields\ID;
-use Lean\Fields\Pikaday;
 use Lean\Fields\Text;
-use Lean\Fields\Number;
 use Lean\Fields\Relations\HasMany;
+use Lean\Fields\Relations\BelongsTo;
 use Lean\LeanResource;
 
 class HallResource extends LeanResource
@@ -34,14 +33,10 @@ class HallResource extends LeanResource
         return [
             ID::make('id'),
 
-            Text::make('location')->label(__('Name')),
-            Number::make('table_columns')->label(__('Table columns')),
-            Number::make('table_rows')->label(__('Table rows')),
+            Text::make('location')->label(__('Location')),
             Text::make('description')->label(__('Description')),
-            HasMany::make('tables')->of(TableResource::class)->label(__('Seats')),
-
-
-            
+            BelongsTo::make('event')->parent(EventResource::class)->label(__('Event')),
+            HasMany::make('tables')->of(TableResource::class)->label(__('Tables')),
         ];
     }
 
