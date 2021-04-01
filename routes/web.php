@@ -27,8 +27,10 @@ Route::middleware(['guest'])->group(function() {
 });
 
 Route::middleware(['auth', 'verified'])->group(function() {
-    Route::get('/seatpicker', SeatPicker::class);
+    Route::get('/seat-picker', SeatPicker::class)->name('seat-picker');
 });
+
+Route::get('/', Home::class)->name('home');
 
 Route::middleware(['admin'])->group(function() {
     Lean::routes([
@@ -52,7 +54,7 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    return redirect('/');
+    return redirect('/seat-picker');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 
@@ -61,5 +63,3 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Email byl odeslán!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-Route::get('/', Home::class)->name('home');
