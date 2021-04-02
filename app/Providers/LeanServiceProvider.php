@@ -35,6 +35,5 @@ class LeanServiceProvider extends ServiceProvider
         Lean::resource('orders', Resources\OrderResource::class);
         Lean::resource('orderItem', Resources\OrderItemResource::class);
         Lean::resource('orderStates', Resources\OrderStateResource::class);
-        Lean::resource('settings', Resources\SettingResource::class);
     }
 }
