@@ -18,6 +18,9 @@
         @auth
             <a href="{{ route('logout') }}" class="btn btn-secondary"> Odhlásit </a>
         @endauth
+        @admin
+            <a href="{{ url('admin') }}" class="btn btn-secondary"> Admin </a>
+        @endadmin
     </div>
     
     <div class="mt-8 absolute right-0 top-0">
