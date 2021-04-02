@@ -32,9 +32,9 @@ class LeanServiceProvider extends ServiceProvider
         Lean::resource('tables', Resources\TableResource::class);
         Lean::resource('seats', Resources\SeatResource::class);
         Lean::resource('seatTypes', Resources\SeatTypeResource::class);
-        Lean::resource('reservedSeats', Resources\ReservedSeatResource::class);
-        Lean::resource('orderStates', Resources\OrderStateResource::class);
         Lean::resource('orders', Resources\OrderResource::class);
+        Lean::resource('orderItem', Resources\OrderItemResource::class);
+        Lean::resource('orderStates', Resources\OrderStateResource::class);
         Lean::resource('settings', Resources\SettingResource::class);
     }
 }
