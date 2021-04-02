@@ -19,6 +19,7 @@ class CreateEventsTable extends Migration
             $table->datetime('reservation_end');
             $table->datetime('ball_start');
             $table->string('location');
+            $table->integer('seat_reservation_timeout');
             $table->string('description', 2000)->nullable();
             $table->timestamps();
         });
