@@ -26,6 +26,7 @@ class EventFactory extends Factory
             'reservation_end' => $this->faker->dateTimeBetween('+2 week', '+3 week'),
             'ball_start' => $this->faker->dateTimeBetween('+2 week', '+3 week'),
             'location' => $this->faker->streetAddress(),
+            'seat_reservation_timeout' => $this->faker->randomDigit(),
             'description' => $this->faker->sentence(15),
         ];
     }
