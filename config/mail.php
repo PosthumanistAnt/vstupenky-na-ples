@@ -107,4 +107,14 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Teacher Mail
+    |--------------------------------------------------------------------------
+    |
+    | This option controls the default mail that is used to send any emails
+    |
+    */
+
+    'teacher_email' => env('TEACHER_EMAIL', 'config_mail@oauh.cz'),
 ];
