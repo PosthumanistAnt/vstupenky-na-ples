@@ -36,7 +36,7 @@ class TableResource extends LeanResource
         return [
             ID::make('id'),
             
-            Text::make('description')->label(__('Description')),
+            Text::make('description')->optional()->label(__('Description')),
             Number::make('position_x')->label(__('Position X')),
             Number::make('position_y')->label(__('Position Y')),
             BelongsTo::make('hall')->parent(HallResource::class)->label(__('Hall')),

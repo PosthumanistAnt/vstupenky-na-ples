@@ -34,7 +34,7 @@ class SeatResource extends LeanResource
         return [
             ID::make('id'),
 
-            Text::make('description')->label(__('Description')),
+            Text::make('description')->optional()->label(__('Description')),
             Number::make('number')->label(__('Number')),
             BelongsTo::make('table')->parent(TableResource::class)->label(__('Table')),
             BelongsTo::make('seatType')->parent(SeatTypeResource::class)->label(__('Seat type')),

@@ -35,7 +35,7 @@ class HallResource extends LeanResource
             ID::make('id'),
 
             Text::make('location')->label(__('Location')),
-            Text::make('description')->label(__('Description')),
+            Text::make('description')->optional()->label(__('Description')),
             BelongsTo::make('event')->parent(EventResource::class)->label(__('Event')),
             HasMany::make('tables')->of(TableResource::class)->label(__('Tables')),
 
