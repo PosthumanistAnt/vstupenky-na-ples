@@ -1,8 +1,7 @@
 <div class="h-screen w-auto">    
     <div class="h-1/3 w-auto m-4 flex justify-between p-5" x-data>
         <button class="p-5 bg-brand-600 text-white" @click="Lean.modal('create', {'resource': 'tables'})">Přidat stůl</a>
-        <button class="p-5 bg-brand-600 text-white" onclick="duplicateSelection()">Duplikovat výběr</button>
-        {{-- <button class="p-5 bg-brand-600 text-white">Uložit do databáze</button> --}}
+        <button class="p-5 bg-brand-600 text-white" @click="Lean.modal('create', {'resource': 'seats'})">Přidat sedadlo</a>
     </div>
 
     <div>
@@ -277,54 +276,5 @@
                 y: y
             };
         }
-
-
-        // var $ = function(id){return document.getElementById(id)};
-        // var rect = new fabric.Rect({
-        // width: 100,
-        // height: 100,
-        // top: 100,
-        // left: 100,
-        // fill: 'rgba(255,0,0,0.5)'
-        // });
-
-        // canvas.add(rect);
-
-        // var angleControl = $('angle-control');
-        //     angleControl.oninput = function() {
-        //     rect.set('angle', parseInt(this.value, 10)).setCoords();
-        //     canvas.requestRenderAll();
-        // };
-
-        // function updateControls() {
-        //     angleControl.value = rect.angle;
-        // }
-        // canvas.on({
-        //     'object:rotating': updateControls,
-        // });
-
-        function duplicateSelection(){
-            console.log( canvas.getActiveObject() );
-            if (!canvas.getActiveObject()) {
-                console.log( 'Neni nic vybraneho' );
-                return;
-            }
-            if (canvas.getActiveObject().type !== 'activeSelection') {
-                console.log( 'Jenom 1 objekt' );
-                return;
-            }
-            canvas.add( canvas.getActiveObject().clone() );
-            canvas.requestRenderAll();
-            // canvas.add( canvas.getActiveObject() );
-            // var table = new fabric.Rect({
-            //     left: {{ $table->position_x }},
-            //     top: {{ $table->position_y }},
-            //     width: tableWidth,
-            //     height: tableWidth,
-            //     fill: "black",
-            //     seatGroups: [],
-            // });
-        }
-        
     </script>
 </div>
