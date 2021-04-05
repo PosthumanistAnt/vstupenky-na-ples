@@ -1,9 +1,5 @@
 <x-layouts.app>
     <div class="h-screen">
-        <div class="fixed top-12">
-            <a href="{{ route('logout') }}" class="btn btn-primary"> Odhlásit </a>
-        </div>
-
         <div class="fixed top-52 inset-x-0">
             <p class="text-5xl text-center p-4 tracking-wide">
                 Potvrzovací email byl odeslán!
