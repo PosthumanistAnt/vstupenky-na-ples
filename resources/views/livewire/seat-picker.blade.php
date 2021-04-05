@@ -1,20 +1,33 @@
-<div class="h-screen pb-4 w-auto">    
-    <div class="xl:flex my-12 h-full mt-60">
-        <div id="canvas-wrapper" class="w-full xl:w-2/3 h-full xl:h-2/3 pl-4" wire:ignore>
+<div class="h-screen pb-4 w-screen">    
+    <div class="xl:flex my-12 h-full mt-60 w-full">
+        <div id="canvas-wrapper" class="w-full xl:w-2/3 h-full xl:h-2/3" wire:ignore>
             <canvas id="canvas"></canvas>
         </div>
-        <div class="w-full xl:w-1/3">
-            <h2 class="text-3xl text-center tracking-wide"> Nákupní košík (TODO) </h2>
+        <div class="w-full xl:w-1/3 h-full xl:h-2/3">
+            <div class="flex justify-center w-full">
+                <div class="w-1/2 p-4">
+                    <p class="text-center text-xl">Vybrané vstupenky:</p>
+                    @foreach ($selectedSeats as $selectedSeat)
+                        {{ $selectedSeat }}
+                    @endforeach
+                </div>
+
+                <button class="w-1/2 text-center text-xl p-4" wire:click="$emit('selectedSeatsAddedToCart')">Vložit do košíku</button>
+                {{-- {{\Illuminate\Support\Str::limit('123456789adsf123456789asdf123456789asdfghjklqertzoiycnbnm', 10)}}          --}}
+            </div>
+            <h2 class="text-3xl text-center tracking-wide mt-12"> Nákupní košík (TODO) </h2>
         </div>
     </div>
 
+
     <script>   
-        var seats =  [];
         var seatWidth = 20;
 
         var tables =  [];
         var tableWidth = 50;
-        
+
+        var panning = false;
+
         // change in position of seat depending on its index in table
         var positionsList = [
             {
@@ -66,37 +79,39 @@
             height: document.getElementById('canvas-wrapper').clientHeight,
         });
 
-        // panning
-        canvas.on( 'mouse:down', function(opt) {
-            var evt = opt.e;
-            if (evt.altKey === true) {
-                this.isDragging = true;
-                this.selection = false;
-                this.lastPosX = evt.clientX;
-                this.lastPosY = evt.clientY;
-            }
+        // add guiding lines to know where coordinates start
+        // add vertical guiding line
+        canvas.add(new fabric.Line([0, 0, 0, 4000], {
+            left: 0,
+            top: -2000,
+            stroke: 'black',
+            selectable: false,        
+        }));
+
+        // add horizontal guiding line
+        canvas.add(new fabric.Line([0, 0, 4000, 0], {
+            left: -2000,
+            top: 0,
+            stroke: 'black',
+            selectable: false,
+        }));
+
+        canvas.on('mouse:down', function (e) {
+            panning = true;
         });
 
-        // still panning
-        canvas.on( 'mouse:move', function(opt) {
-            if (this.isDragging) {
-                var e = opt.e;
-                var vpt = this.viewportTransform;
-                vpt[4] += e.clientX - this.lastPosX;
-                vpt[5] += e.clientY - this.lastPosY;
-                this.requestRenderAll();
-                this.lastPosX = e.clientX;
-                this.lastPosY = e.clientY;
-            }
-        });
-
-        // also panning
-        canvas.on( 'mouse:up', function(opt) {
-            // on mouse up we want to recalculate new interaction
-            // for all objects, so we call setViewportTransform
-            this.setViewportTransform(this.viewportTransform);
-            this.isDragging = false;
+        canvas.on('mouse:up', function (e) {
+            panning = false;
             this.selection = true;
+        });
+
+        canvas.on('mouse:move', function (e) {
+            if (panning && e && e.e && e.e.altKey === true) {
+                var units = 10;
+                var delta = new fabric.Point(e.e.movementX, e.e.movementY);
+                this.selection = false;
+                canvas.relativePan(delta);
+            }
         });
         
         // zooming
@@ -112,13 +127,13 @@
         });
         
         // clicking on a seat and adding it to cart
-        canvas.on( 'mouse:down', function(opt) {
-            if( opt.target && opt.target.seatId !== undefined ){
-                var seat = opt.target;
-                seat.set("fill", 'green');
-            } 
+        canvas.on( 'mouse:down', function( e ) {
+            if( e.target?.type === "seatGroup") {
+                livewire.emit('seatAddedToSelection', e.target.seatId );
+            }
+            //TODO add to cart?
         });
-        
+
         // push results from DB to js arrays
         @foreach ( $tables as $table )
             var table = new fabric.Rect({
@@ -126,60 +141,89 @@
                 top: {{ $table->position_y }},
                 width: tableWidth,
                 height: tableWidth,
+                type: 'table',
+                selectable: false,
+                tableId: {{ $table->id }},
                 fill: "black",
-                seats: [],
+                seatGroups: [],
             });
 
-            canvas.add(table);
+            tables.push( table );
+            canvas.add( table );
 
             @foreach( $table->seats as $seat )
-                var seatPosition = evaluateSeatPosition({{ $loop->index }}, table);
+            
+                var groupPosition = evaluateSeatGroupPosition( {{ $loop->index }}, table );
 
-                table.seats.push( new fabric.Rect({
-                    left: seatPosition.x,
-                    top: seatPosition.y,
+                var seat = new fabric.Rect({
+                    originX: 'center',
+                    originY: 'center',
                     width: seatWidth,
                     height: seatWidth,
-                    fill: "blue",
-                    selectable: false,
+                    @if( $seat->seatType->color )
+                        fill: "{{ $seat->seatType->color }}",
+                    @else
+                        fill: "blue",
+                    @endif
                     seatId: {{ $seat->id }},
                     seatType: {{ $seat->seatType->id }},
-                }));  
+                    type: 'seat',
+                });
 
-                canvas.add( table.seats[ table.seats.length - 1 ]);
+                var text = new fabric.Text( "{{ $seat->number }}" , {
+                    fill: 'white',
+                    fontSize: 10,
+                    originX: 'center',
+                    originY: 'center',
+                    type: 'seatNumber',
+                });
+
+                var seatGroup = new fabric.Group([ seat, text ], {
+                    left: groupPosition.x,
+                    top: groupPosition.y,
+                    selectable: false,
+                    seatId: {{ $seat->id }},
+                    type: 'seatGroup',
+                });
+
+                table.seatGroups.push( seatGroup );  
+                canvas.add( table.seatGroups[ {{$loop->index }} ] );
+
             @endforeach
         @endforeach
 
-
-        // move seats when table is moving
-        canvas.on('object:moving', function(e) {
-            var table = e.target;
-
-            table.seats.forEach( function( seat, seatIndex ) {
-                var seatPosition = evaluateSeatPosition(seatIndex, table)
-                seat.left = seatPosition.x;
-                seat.top = seatPosition.y;
+        function setCorrectSeatGroupsPosition( table, group ) {
+            table.seatGroups.forEach( function ( seatGroup, seatGroupIndex ) {       
+                var evaluatedSeatGroupPosition = evaluateSeatGroupPosition( seatGroupIndex, table, group );
+                seatGroup.left = evaluatedSeatGroupPosition.x;
+                seatGroup.top = evaluatedSeatGroupPosition.y;
+                seatGroup.setCoords();
             });
-        });
+        }
+        
+        function evaluateSeatGroupPosition(seatIndex, table, group = null) {
 
-        // same as on moving but on moved
-        canvas.on('object:moved', function(e) {
-            var table = e.target;
+            var groupOffset = {
+                x: 0,
+                y: 0
+            };
+            
+            if(group){
+                groupOffset.x = group.aCoords.tl.x + group.width/2;
+                groupOffset.y = group.aCoords.tl.y + group.height/2;
+            }
 
-            table.seats.forEach( function( seat, seatIndex ) {
-                var seatPosition = evaluateSeatPosition(seatIndex, table)
-                seat.left = seatPosition.x;
-                seat.top = seatPosition.y;
-            });
-        });
+            if( seatIndex > 7 ) {
+                alert( 'Stůl ' + seatIndex + ' má přiřazených více než 8 vstupenek.');
+                return;
+            }
 
-
-        function evaluateSeatPosition(seatIndex, table) {
             var desiredPosition = positionsList[seatIndex];
-            var tableCoords = table.aCoords;
 
-            var x = tableCoords[desiredPosition.corner].x + desiredPosition.x * seatWidth;
-            var y = tableCoords[desiredPosition.corner].y + desiredPosition.y * seatWidth;
+            var tableCoords = table.calcCoords(true);
+
+            var x = tableCoords[desiredPosition.corner].x + desiredPosition.x * seatWidth + groupOffset.x;
+            var y = tableCoords[desiredPosition.corner].y + desiredPosition.y * seatWidth + groupOffset.y;
 
             return {
                 x: x,

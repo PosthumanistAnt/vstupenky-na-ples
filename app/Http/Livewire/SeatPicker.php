@@ -8,6 +8,18 @@ use Livewire\Component;
 
 class SeatPicker extends Component
 {
+    public $selectedSeats = [];
+    public $listeners = ['seatAddedToSelection', 'selectedSeatsAddedToCart'];
+
+    public function seatAddedToSelection($seatId)
+    {
+        array_push($this->selectedSeats, $seatId);
+    }   
+
+    public function selectedSeatsAddedToCart()
+    {
+        dd($this->selectedSeats);
+    }
 
     public function admin()
     {
