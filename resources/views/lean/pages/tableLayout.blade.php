@@ -183,7 +183,11 @@
                     originY: 'center',
                     width: seatWidth,
                     height: seatWidth,
-                    fill: "blue",
+                    @if( $seat->seatType->color )
+                        fill: "{{ $seat->seatType->color }}",
+                    @else
+                        fill: "blue",
+                    @endif
                     seatId: {{ $seat->id }},
                     seatType: {{ $seat->seatType->id }},
                     type: 'seat',
