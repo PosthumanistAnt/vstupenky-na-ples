@@ -130,18 +130,20 @@
         
         // clicking on a seat and adding it to cart
         canvas.on( 'mouse:down', function( e ) {
-            if( e.target?.type === "seatGroup") {
-                Lean.modal( 'edit', {
-                    'resource': 'seats',
-                    'model': e.target.seatId
-                });
-            }
+            if( document.getElementById("show_modals").checked ) {
+                if( e.target?.type === "seatGroup") {
+                    Lean.modal( 'edit', {
+                        'resource': 'seats',
+                        'model': e.target.seatId
+                    });
+                }
 
-            if( e.target?.type === "table") {
-                Lean.modal( 'edit', {
-                    'resource': 'tables',
-                    'model': e.target.tableId
-                });
+                if( e.target?.type === "table") {
+                    Lean.modal( 'edit', {
+                        'resource': 'tables',
+                        'model': e.target.tableId
+                    });
+                }
             }
         });
 
