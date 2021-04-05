@@ -132,6 +132,13 @@
                     'model': e.target.seatId
                 });
             }
+
+            if( e.target?.type === "table") {
+                Lean.modal( 'edit', {
+                    'resource': 'tables',
+                    'model': e.target.tableId
+                });
+            }
         });
 
         // moving seats when table is moving
