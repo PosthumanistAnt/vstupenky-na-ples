@@ -14,12 +14,13 @@
             </div> --}}
             <h2 class="text-3xl text-center tracking-wide"> Nákupní košík (TODO) </h2>
             @foreach ($selectedSeats as $selectedSeat)
-                <div class="flex justify-between px-8">
+                <div class="flex justify-between items-center px-8">
                     <p> {{ $selectedSeat->number }} </p>
                     <p> {{ $selectedSeat->seatType->price }} </p>
+                    <button class="p-2 px-4 m-2 bg-gray-800" wire:click="$emit('seatDeselected', '{{ $selectedSeat->id }}' )"> X </button>
                 </div>
             @endforeach
-
+>
         </div>
     </div>
 
@@ -132,9 +133,8 @@
         // clicking on a seat and adding it to cart
         canvas.on( 'mouse:down', function( e ) {
             if( e.target?.type === "seatGroup") {
-                livewire.emit('seatAddedToSelection', e.target.seatId );
+                livewire.emit('seatSelected', e.target.seatId );
             }
-            //TODO add to cart?
         });
 
         // push results from DB to js arrays

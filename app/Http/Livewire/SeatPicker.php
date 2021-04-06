@@ -12,7 +12,7 @@ class SeatPicker extends Component
     public $selectedSeats;
     public $totalPrice;
 
-    public $listeners = ['seatAddedToSelection', 'selectedSeatsAddedToCart'];
+    public $listeners = ['seatSelected', 'seatDeselected', 'selectedSeatsAddedToCart'];
 
     public function __construct()
     {
@@ -20,17 +20,25 @@ class SeatPicker extends Component
         $this->totalPrice = 0; 
     }
 
-    public function seatAddedToSelection($seatId)
+    public function seatSelected($seatId)
     {
         $addedSeat = Seat::find($seatId);
 
         if(!$this->selectedSeats->contains($addedSeat)){
             $this->selectedSeats->push($addedSeat);
-        }else{
-            $this->selectedSeats = $this->selectedSeats->reject($addedSeat);
         }
-        
+
     }   
+
+    public function seatDeselected($seatId)
+    {
+        $addedSeat = Seat::find($seatId);
+
+        if($this->selectedSeats->contains($addedSeat)){
+            $this->selectedSeats = $this->selectedSeats->except($addedSeat->id);
+        }
+
+    }
 
     public function selectedSeatsAddedToCart()
     {
