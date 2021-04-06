@@ -20,7 +20,9 @@
                     <button class="p-2 px-4 m-2 bg-gray-800" wire:click="$emit('seatDeselected', '{{ $selectedSeat->id }}' )"> X </button>
                 </div>
             @endforeach
->
+            <p class="text-center text-xl">
+                {{ $totalPrice }}
+            </p>
         </div>
     </div>
 

@@ -28,6 +28,7 @@ class SeatPicker extends Component
             $this->selectedSeats->push($addedSeat);
         }
 
+        $this->refreshCartPrice();
     }   
 
     public function seatDeselected($seatId)
@@ -37,12 +38,18 @@ class SeatPicker extends Component
         if($this->selectedSeats->contains($addedSeat)){
             $this->selectedSeats = $this->selectedSeats->except($addedSeat->id);
         }
-
+        
+        $this->refreshCartPrice();
     }
 
     public function selectedSeatsAddedToCart()
     {
         dd($this->selectedSeats);
+    }
+
+    public function refreshCartPrice()
+    {
+        $this->totalPrice = $this->selectedSeats->sum('seatType.price');
     }
 
     public function admin()
