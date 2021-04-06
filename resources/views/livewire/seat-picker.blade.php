@@ -4,15 +4,8 @@
             <canvas id="canvas"></canvas>
         </div>
         <div class="w-full xl:w-1/3 h-full xl:h-2/3">
-            {{-- <div class="flex justify-center w-full">
-                <div class="w-1/2 p-4">
-                    <p class="text-center text-xl">Vybrané vstupenky:</p>
-
-                </div>
-
-                <button class="w-1/2 text-center text-xl p-4 bg-gray-800 font-bold" wire:click="$emit('selectedSeatsAddedToCart')">Vložit do košíku</button>
-            </div> --}}
             <h2 class="text-3xl text-center tracking-wide"> Nákupní košík (TODO) </h2>
+            <div class="overflow-y-scroll h-2/3">
             <table class="w-full mt-4">
                 <tr>
                     <th class="text-xl"> Číslo vstupenky </th>
@@ -27,16 +20,10 @@
                     </tr>
                 @endforeach
             </table>
-            {{-- @foreach ($selectedSeats as $selectedSeat)
-                <div class="flex justify-between items-center px-8">
-                    <p> {{ $selectedSeat->number }} </p>
-                    <p> {{ $selectedSeat->seatType->price }} </p>
-                    <button class="p-2 px-4 m-2 bg-gray-800" wire:click="$emit('seatDeselected', '{{ $selectedSeat->id }}' )"> X </button>
-                </div>
-            @endforeach --}}
-            <p class="text-center text-xl mt-4">
-                Celková cena: {{ $totalPrice }}
-            </p>
+            </div>
+            <div class="flex justify-evenly mt-8">
+                <p class="text-center text-xl"> Celková cena: {{ $totalPrice }} </p>
+            </div>
         </div>
     </div>
 
@@ -149,7 +136,7 @@
         // clicking on a seat and adding it to cart
         canvas.on( 'mouse:down', function( e ) {
             if( e.target?.type === "seatGroup") {
-                livewire.emit('seatSelected', e.target.seatId );
+                livewire.emit( 'seatSelected', e.target.seatId );
             }
         });
 
