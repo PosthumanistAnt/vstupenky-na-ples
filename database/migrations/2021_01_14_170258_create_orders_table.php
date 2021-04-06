@@ -18,8 +18,7 @@ class CreateOrdersTable extends Migration
             $table->string('code');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('state_id');
-            $table->foreign('state_id')->references('id')->on('order_states');
+            $table->enum('status', ['declined', 'pending', 'accepted']);
             $table->timestamps();
         });
     }
