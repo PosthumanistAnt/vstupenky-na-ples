@@ -1,4 +1,4 @@
-<div class="h-screen pb-4 w-screen">    
+<div class="h-screen pb-4 w-screen">
     <div class="xl:flex my-12 h-full mt-60 w-full">
         <div id="canvas-wrapper" class="w-full xl:w-2/3 h-full xl:h-2/3" wire:ignore>
             <canvas id="canvas"></canvas>
@@ -13,20 +13,34 @@
                 <button class="w-1/2 text-center text-xl p-4 bg-gray-800 font-bold" wire:click="$emit('selectedSeatsAddedToCart')">Vložit do košíku</button>
             </div> --}}
             <h2 class="text-3xl text-center tracking-wide"> Nákupní košík (TODO) </h2>
-            @foreach ($selectedSeats as $selectedSeat)
+            <table class="w-full mt-4">
+                <tr>
+                    <th class="text-xl"> Číslo vstupenky </th>
+                    <th class="text-xl"> Cena </th>
+                    <th class="text-xl"> Smazat </th>
+                </tr>
+                @foreach ($selectedSeats as $selectedSeat)
+                    <tr class="px-8 border-gray-800 border-b-2">
+                        <td class="text-center"> {{ $selectedSeat->number }} </td>
+                        <td class="text-center"> {{ $selectedSeat->seatType->price }} </td>
+                        <td class="text-center"> <button class="p-2 px-4 m-2 bg-gray-800" wire:click="$emit('seatDeselected', '{{ $selectedSeat->id }}' )"> X </button> </td>
+                    </tr>
+                @endforeach
+            </table>
+            {{-- @foreach ($selectedSeats as $selectedSeat)
                 <div class="flex justify-between items-center px-8">
                     <p> {{ $selectedSeat->number }} </p>
                     <p> {{ $selectedSeat->seatType->price }} </p>
                     <button class="p-2 px-4 m-2 bg-gray-800" wire:click="$emit('seatDeselected', '{{ $selectedSeat->id }}' )"> X </button>
                 </div>
-            @endforeach
-            <p class="text-center text-xl">
-                {{ $totalPrice }}
+            @endforeach --}}
+            <p class="text-center text-xl mt-4">
+                Celková cena: {{ $totalPrice }}
             </p>
         </div>
     </div>
 
-    <script>   
+    <script>
         var seatWidth = 20;
 
         var tables =  [];
@@ -78,7 +92,7 @@
             }
         ];
 
-        // resize and initialize the canvas  
+        // resize and initialize the canvas
         var canvas = new fabric.Canvas('canvas', {
             backgroundColor: 'brown',
             width: document.getElementById('canvas-wrapper').clientWidth,
@@ -91,7 +105,7 @@
             left: 0,
             top: -2000,
             stroke: 'black',
-            selectable: false,        
+            selectable: false,
         }));
 
         // add horizontal guiding line
@@ -119,7 +133,7 @@
                 canvas.relativePan(delta);
             }
         });
-        
+
         // zooming
         canvas.on( 'mouse:wheel', function(opt) {
             var delta = opt.e.deltaY;
@@ -131,7 +145,7 @@
             opt.e.preventDefault();
             opt.e.stopPropagation();
         });
-        
+
         // clicking on a seat and adding it to cart
         canvas.on( 'mouse:down', function( e ) {
             if( e.target?.type === "seatGroup") {
@@ -157,7 +171,7 @@
             canvas.add( table );
 
             @foreach( $table->seats as $seat )
-            
+
                 var groupPosition = evaluateSeatGroupPosition( {{ $loop->index }}, table );
 
                 var seat = new fabric.Rect({
@@ -191,28 +205,28 @@
                     type: 'seatGroup',
                 });
 
-                table.seatGroups.push( seatGroup );  
+                table.seatGroups.push( seatGroup );
                 canvas.add( table.seatGroups[ {{$loop->index }} ] );
 
             @endforeach
         @endforeach
 
         function setCorrectSeatGroupsPosition( table, group ) {
-            table.seatGroups.forEach( function ( seatGroup, seatGroupIndex ) {       
+            table.seatGroups.forEach( function ( seatGroup, seatGroupIndex ) {
                 var evaluatedSeatGroupPosition = evaluateSeatGroupPosition( seatGroupIndex, table, group );
                 seatGroup.left = evaluatedSeatGroupPosition.x;
                 seatGroup.top = evaluatedSeatGroupPosition.y;
                 seatGroup.setCoords();
             });
         }
-        
+
         function evaluateSeatGroupPosition(seatIndex, table, group = null) {
 
             var groupOffset = {
                 x: 0,
                 y: 0
             };
-            
+
             if(group){
                 groupOffset.x = group.aCoords.tl.x + group.width/2;
                 groupOffset.y = group.aCoords.tl.y + group.height/2;
