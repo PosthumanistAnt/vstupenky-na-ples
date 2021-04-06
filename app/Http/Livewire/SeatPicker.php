@@ -28,17 +28,19 @@ class SeatPicker extends Component
             $this->selectedSeats->push($addedSeat);
         }
 
+        $this->sortSelectedSeats();
         $this->refreshCartPrice();
     }   
 
     public function seatDeselected($seatId)
     {
         $addedSeat = Seat::find($seatId);
-
+        
         if($this->selectedSeats->contains($addedSeat)){
             $this->selectedSeats = $this->selectedSeats->except($addedSeat->id);
         }
-        
+
+        $this->sortSelectedSeats();
         $this->refreshCartPrice();
     }
 
@@ -52,6 +54,10 @@ class SeatPicker extends Component
         $this->totalPrice = $this->selectedSeats->sum('seatType.price');
     }
 
+    public function sortSelectedSeats()
+    {
+        $this->selectedSeats = $this->selectedSeats->sortBy('number');
+    }
     public function admin()
     {
         return redirect('admin');
