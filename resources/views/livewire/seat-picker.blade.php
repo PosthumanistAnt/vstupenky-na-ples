@@ -4,21 +4,24 @@
             <canvas id="canvas"></canvas>
         </div>
         <div class="w-full xl:w-1/3 h-full xl:h-2/3">
-            <div class="flex justify-center w-full">
+            {{-- <div class="flex justify-center w-full">
                 <div class="w-1/2 p-4">
                     <p class="text-center text-xl">Vybrané vstupenky:</p>
-                    @foreach ($selectedSeats as $selectedSeat)
-                        {{ $selectedSeat }}
-                    @endforeach
+
                 </div>
 
-                <button class="w-1/2 text-center text-xl p-4" wire:click="$emit('selectedSeatsAddedToCart')">Vložit do košíku</button>
-                {{-- {{\Illuminate\Support\Str::limit('123456789adsf123456789asdf123456789asdfghjklqertzoiycnbnm', 10)}}          --}}
-            </div>
-            <h2 class="text-3xl text-center tracking-wide mt-12"> Nákupní košík (TODO) </h2>
+                <button class="w-1/2 text-center text-xl p-4 bg-gray-800 font-bold" wire:click="$emit('selectedSeatsAddedToCart')">Vložit do košíku</button>
+            </div> --}}
+            <h2 class="text-3xl text-center tracking-wide"> Nákupní košík (TODO) </h2>
+            @foreach ($selectedSeats as $selectedSeat)
+                <div class="flex justify-between px-8">
+                    <p> {{ $selectedSeat->number }} </p>
+                    <p> {{ $selectedSeat->seatType->price }} </p>
+                </div>
+            @endforeach
+
         </div>
     </div>
-
 
     <script>   
         var seatWidth = 20;
