@@ -12,7 +12,7 @@ class SeatPicker extends Component
     public $selectedSeats;
     public $totalPrice;
 
-    public $listeners = ['seatSelected', 'seatDeselected', 'selectedSeatsAddedToCart'];
+    public $listeners = ['seatSelected', 'seatDeselected'];
 
     public function __construct()
     {
@@ -42,11 +42,6 @@ class SeatPicker extends Component
 
         $this->sortSelectedSeats();
         $this->refreshCartPrice();
-    }
-
-    public function selectedSeatsAddedToCart()
-    {
-        dd($this->selectedSeats);
     }
 
     public function refreshCartPrice()
