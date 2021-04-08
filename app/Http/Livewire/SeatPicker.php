@@ -52,6 +52,11 @@ class SeatPicker extends Component
     {
         $this->totalPrice = $this->selectedSeats->sum('seatType.price');
     }
+    
+    public function unsetMessage($message)
+    {
+        session()->forget($message);
+    }
 
     public function sortSelectedSeats()
     {
@@ -64,6 +69,8 @@ class SeatPicker extends Component
 
         if($cart->isEmpty())
         {
+            session()->flash('cart_empty', 'Košík je prázdný.');
+            return false;
             dd('nothing in cart TODO modal?');
         }
 
