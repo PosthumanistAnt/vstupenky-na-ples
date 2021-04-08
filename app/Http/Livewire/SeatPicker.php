@@ -96,6 +96,7 @@ class SeatPicker extends Component
             OrderItem::insert($orderItems);
         });
 
+        session()->flash('order_placed', 'Objednávka uložena. Potvrďte ji v emailu.');
         $this->selectedSeats = new \Illuminate\Database\Eloquent\Collection;
         $this->refreshCartPrice();
     }

@@ -35,6 +35,14 @@
             </div>
         </div>
     @endif
+    @if (session()->has('order_placed'))
+        <div class="fixed bottom-20 w-full h-16">
+            <div class="bg-blue-400 text-black text-3xl flex justify-evenly items-center h-full">
+                <p> {{ session('order_placed') }} </p>
+                <button class="p-2 px-8 bg-gray-800 text-white" wire:click="unsetMessage('order_placed')"> X </button>
+            </div>
+        </div>
+    @endif
     <script>
         var seatWidth = 20;
 
