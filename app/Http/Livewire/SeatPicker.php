@@ -2,10 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Table;
 use App\Models\Seat;
+use App\Models\Table;
+use App\Models\Order;
 use Livewire\Component;
-use Illuminate\Support\Collection;
+use App\Models\OrderItem;
+// use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class SeatPicker extends Component
 {
@@ -53,6 +57,42 @@ class SeatPicker extends Component
     {
         $this->selectedSeats = $this->selectedSeats->sortBy('number');
     }
+
+    public function orderSeats()
+    {
+        $cart = $this->selectedSeats;
+
+        if($cart->isEmpty())
+        {
+            dd('nothing in cart TODO modal?');
+        }
+
+        DB::transaction(function() use($cart) {
+            $now = now()->toDateTimeString();
+            
+            $order = new Order;
+            $order->code = 'neni';
+            $order->user_id = auth()->user()->id;
+            $order->state_id = 1;
+            $order->save();
+        
+            $orderItems = [];
+            foreach ($cart->all() as $selectedSeat) {
+                $orderItems[] = [
+                    'order_id' => $order->id,
+                    'seat_id' => $selectedSeat->id,
+                    'created_at'=> $now,
+                    'updated_at'=> $now,
+                ];
+            }
+
+            OrderItem::insert($orderItems);
+        });
+
+        $this->selectedSeats = new \Illuminate\Database\Eloquent\Collection;
+        $this->refreshCartPrice();
+    }
+    
     public function admin()
     {
         return redirect('admin');
