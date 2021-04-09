@@ -98,6 +98,7 @@
         // resize and initialize the canvas
         var canvas = new fabric.Canvas('canvas', {
             backgroundColor: 'brown',
+            selection: false,
             width: document.getElementById('canvas-wrapper').clientWidth,
             height: document.getElementById('canvas-wrapper').clientHeight,
         });
