@@ -168,6 +168,7 @@
                 tableId: {{ $table->id }},
                 fill: "black",
                 seatGroups: [],
+                hoverCursor: "default",
             });
 
             tables.push( table );
@@ -206,6 +207,7 @@
                     selectable: false,
                     seatId: {{ $seat->id }},
                     type: 'seatGroup',
+                    hoverCursor: "pointer",
                 });
 
                 table.seatGroups.push( seatGroup );
