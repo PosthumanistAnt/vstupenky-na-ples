@@ -1,5 +1,5 @@
-<div class="h-screen pb-4 w-screen">
-    <div class="xl:flex my-12 mt-36 h-2/3 w-full">
+<div class="pb-4 w-screen" style="height: 70vh">
+    <div class="xl:flex my-12 mt-36 h-full w-full">
         <div id="canvas-wrapper" class="w-full xl:w-2/3 h-full" wire:ignore>
             <canvas id="canvas"></canvas>
         </div>
