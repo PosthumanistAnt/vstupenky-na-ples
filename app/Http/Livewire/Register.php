@@ -42,10 +42,12 @@ class Register extends Component
 
         return redirect()->route('verification.notice');
     }
+    
     public function login()
     {
         return redirect("login");
     }
+    
     public function render()
     {
         return view('livewire.register')
