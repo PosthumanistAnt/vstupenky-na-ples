@@ -1,14 +1,16 @@
 <?php
 
-use Illuminate\Http\Request;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Login;
+use Illuminate\Http\Request;
 use App\Http\Livewire\Register;
 use App\Http\Livewire\SeatPicker;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReservationConfirmation;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,3 +65,14 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Email byl odeslán!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('/order/verify/{id}/{hash}', function (Request $request, $id) {
+    $order = $request->user()->orders()->findOrFail($id);
+    if($order->state_id !== 1){
+        abort(403);
+    }
+
+    $order->state_id = 2;
+    $order->save();
+    return redirect('/seat-picker')->with('order_verified', 'Objednávka úspěšně potvrzena.');
+})->middleware(['auth', 'signed'])->name('order.verify');

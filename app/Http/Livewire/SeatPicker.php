@@ -7,9 +7,10 @@ use App\Models\Table;
 use App\Models\Order;
 use Livewire\Component;
 use App\Models\OrderItem;
-// use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\ReservationConfirmation;
 
 class SeatPicker extends Component
 {
@@ -65,24 +66,24 @@ class SeatPicker extends Component
 
     public function orderSeats()
     {
+        $now = now()->toDateTimeString();
         $cart = $this->selectedSeats;
+        $user = auth()->user();
+        $hash = sha1($user->email);
 
         if($cart->isEmpty())
         {
             session()->flash('cart_empty', 'Košík je prázdný.');
             return false;
-            dd('nothing in cart TODO modal?');
         }
 
-        DB::transaction(function() use($cart) {
-            $now = now()->toDateTimeString();
-            
+        $order_id = (DB::transaction(function() use($cart, $now, $user, $hash) {
             $order = new Order;
-            $order->code = 'neni';
-            $order->user_id = auth()->user()->id;
+            $order->code = $hash;
+            $order->user_id = $user->id;
             $order->state_id = 1;
             $order->save();
-        
+
             $orderItems = [];
             foreach ($cart->all() as $selectedSeat) {
                 $orderItems[] = [
@@ -94,8 +95,10 @@ class SeatPicker extends Component
             }
 
             OrderItem::insert($orderItems);
-        });
+            return($order->id);
+        }));
 
+        Mail::to($user->email)->send(new ReservationConfirmation($order_id, $hash));
         session()->flash('order_placed', 'Objednávka uložena. Potvrďte ji v emailu.');
         $this->selectedSeats = new \Illuminate\Database\Eloquent\Collection;
         $this->refreshCartPrice();

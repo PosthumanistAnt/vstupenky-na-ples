@@ -4,7 +4,7 @@
             <canvas id="canvas"></canvas>
         </div>
         <div class="w-full xl:w-1/3 h-full mt-4 xl:mt-0">
-            <h2 class="text-3xl text-center tracking-wide mb-2"> Nákupní košík (TODO) </h2>
+            <h2 class="text-3xl text-center tracking-wide mb-2"> Nákupní košík </h2>
             <div class="overflow-y-scroll h-2/3 border-gray-800 border-b-2">
             <table class="w-full mt-4">
                 <tr>
@@ -27,6 +27,14 @@
             </div>
         </div>
     </div>
+    @if (session()->has('order_verified'))
+        <div class="fixed bottom-36 w-full h-16">
+            <div class="bg-blue-400 text-black text-3xl flex justify-evenly items-center h-full">
+                <p> {{ session('order_verified') }} </p>
+                <button class="p-2 px-8 bg-gray-800 text-white" wire:click="unsetMessage('order_verified')"> X </button>
+            </div>
+        </div>
+    @endif
     @if (session()->has('cart_empty'))
         <div class="fixed bottom-4 w-full h-16">
             <div class="bg-yellow-400 text-black text-3xl flex justify-evenly items-center h-full">
