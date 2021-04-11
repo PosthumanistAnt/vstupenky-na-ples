@@ -28,4 +28,8 @@ class Seat extends Model
     public function seatType(){
         return $this->belongsTo(SeatType::class);
     }
+    
+    public function orderItem(){
+        return $this->hasOne(OrderItem::class);
+    }
 }
