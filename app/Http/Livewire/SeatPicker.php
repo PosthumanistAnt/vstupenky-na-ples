@@ -29,6 +29,11 @@ class SeatPicker extends Component
     {
         $addedSeat = Seat::find($seatId);
 
+        if(!$addedSeat->orderItem)
+        {
+            return false;
+        }
+
         if(!$this->selectedSeats->contains($addedSeat)){
             $this->selectedSeats->push($addedSeat);
         }
@@ -117,7 +122,7 @@ class SeatPicker extends Component
     public function render()
     {
         return view('livewire.seat-picker', [
-            'tables' => Table::with('seats.seatType')->get()
+            'tables' => Table::with(['seats.seatType', 'seats.orderItem'])->get(),
         ])
         ->layout('components.layouts.app');
     }

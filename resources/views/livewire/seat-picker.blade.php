@@ -105,7 +105,7 @@
 
         // resize and initialize the canvas
         var canvas = new fabric.Canvas('canvas', {
-            backgroundColor: 'brown',
+            backgroundColor: 'darkslategray',
             selection: false,
             width: document.getElementById('canvas-wrapper').clientWidth,
             height: document.getElementById('canvas-wrapper').clientHeight,
@@ -160,7 +160,7 @@
 
         // clicking on a seat and adding it to cart
         canvas.on( 'mouse:down', function( e ) {
-            if( e.target?.type === "seatGroup") {
+            if( e.target?.type === "seatGroup" && e.target.canBeOrdered === true) {
                 livewire.emit( 'seatSelected', e.target.seatId );
             }
         });
@@ -184,6 +184,20 @@
             canvas.add( table );
 
             @foreach( $table->seats as $seat )
+                var seatColor = 'blue';
+                var cursor = "pointer";
+                var canBeOrdered = true;
+
+                @if( $seat->seatType->color )
+                    seatColor = "{{ $seat->seatType->color }}";
+                @endif
+
+                @if( $seat->orderItem )
+                    seatColor = "dimgray";
+                    cursor = "not-allowed";
+                    canBeOrdered = false;
+                @endif
+
 
                 var groupPosition = evaluateSeatGroupPosition( {{ $loop->index }}, table );
 
@@ -192,11 +206,7 @@
                     originY: 'center',
                     width: seatWidth,
                     height: seatWidth,
-                    @if( $seat->seatType->color )
-                        fill: "{{ $seat->seatType->color }}",
-                    @else
-                        fill: "blue",
-                    @endif
+                    fill: seatColor,
                     seatId: {{ $seat->id }},
                     seatType: {{ $seat->seatType->id }},
                     type: 'seat',
@@ -215,8 +225,9 @@
                     top: groupPosition.y,
                     selectable: false,
                     seatId: {{ $seat->id }},
+                    canBeOrdered: canBeOrdered,
                     type: 'seatGroup',
-                    hoverCursor: "pointer",
+                    hoverCursor: cursor,
                 });
 
                 table.seatGroups.push( seatGroup );
