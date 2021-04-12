@@ -29,7 +29,7 @@ class SeatPicker extends Component
     {
         $addedSeat = Seat::find($seatId);
 
-        if(!$addedSeat->orderItem)
+        if( $addedSeat->orderItem )
         {
             return false;
         }
