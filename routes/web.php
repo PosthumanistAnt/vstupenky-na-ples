@@ -31,7 +31,7 @@ Route::middleware(['guest'])->group(function() {
 });
 
 Route::middleware(['auth', 'verified'])->group(function() {
-    Route::get('/seat-picker', SeatPicker::class)->name('seat-picker');
+    Route::get('/seat-picker', SeatPicker::class)->middleware('restrictedByEventTime')->name('seat-picker');
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/order/{id}', Order::class)->middleware('orderBelongsToUser')->name('order');
 });
