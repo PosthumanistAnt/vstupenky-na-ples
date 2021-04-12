@@ -11,11 +11,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\ReservationConfirmation;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Config;
 
 class SeatPicker extends Component
 {
     public $selectedSeats;
     public $totalPrice;
+    public $verificationExpireTime;
 
     public $listeners = ['seatSelected', 'seatDeselected'];
 
@@ -23,17 +26,34 @@ class SeatPicker extends Component
     {
         $this->selectedSeats = new \Illuminate\Database\Eloquent\Collection;
         $this->totalPrice = 0; 
+        $this->verificationExpireTime = Config::get('order.verification_expire_time');
     }
 
     public function seatSelected($seatId)
     {
+
         $addedSeat = Seat::with('orderItem.order.state')->find($seatId);
+        // $addedSeat = Seat::with('orderItem.order.state')->find(6);
 
-        $state = $addedSeat->orderItem->order->state->id ?? 0;
-        $forbiddenStates = [1,2];
+        // dd(Order::whereHas('orderItems', function (Builder $query) use ($addedSeat) {
+        //     $query->where('id', $addedSeat->id);
+        // })->where('created_at', '<', now()->subHour())->get());
 
-        if(in_array($state, $forbiddenStates)){
-            return false;
+        $order = $addedSeat->orderItem->order ?? null;
+        
+        if(!is_null($order))
+        {
+            $state = $order->state->id ?? 0;
+
+            if($state === 2)
+            {
+                return false;
+            }
+            
+            if($state === 1 && $order->created_at->addMinutes($this->verificationExpireTime)->isFuture())
+            {
+                return false;
+            }
         }
 
         if(!$this->selectedSeats->contains($addedSeat)){
@@ -124,6 +144,7 @@ class SeatPicker extends Component
     {
         return view('livewire.seat-picker', [
             'tables' => Table::with(['seats.seatType', 'seats.orderItem'])->get(),
+            'verification_expire_time' => $this->verificationExpireTime,
         ])
         ->layout('components.layouts.app');
     }

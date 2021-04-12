@@ -217,13 +217,12 @@
                 @if( $seat->seatType->color )
                     seatColor = "{{ $seat->seatType->color }}";
                 @endif
-
-                @if( in_array($seat->orderItem->order->state->id ?? 0, [1,2]) )
+                
+                @if( ($seat->orderItem->order->state->id ?? 0) === 2 || (($seat->orderItem->order->state->id ?? 0) === 1 && $seat->orderItem->order->created_at->addMinutes($verification_expire_time)->isFuture()))
                     seatColor = "dimgray";
                     cursor = "not-allowed";
                     canBeOrdered = false;
                 @endif
-
 
                 var groupPosition = evaluateSeatGroupPosition( {{ $loop->index }}, table );
 
