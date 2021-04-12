@@ -84,9 +84,8 @@ class SeatPicker extends Component
             return false;
         }
 
-        $order_id = (DB::transaction(function() use($cart, $now, $user, $hash) {
+        $order_id = (DB::transaction(function() use($cart, $now, $user) {
             $order = new Order;
-            $order->code = $hash;
             $order->user_id = $user->id;
             $order->state_id = 1;
             $order->save();
