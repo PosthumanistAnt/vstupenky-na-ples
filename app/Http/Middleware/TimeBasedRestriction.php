@@ -19,9 +19,6 @@ class TimeBasedRestriction
         // if not reservation, access forbidden
         if ( \App\Models\Event::orderBy('id', 'DESC')->first()->reservation_end->isPast() ) {
             return redirect('event-over');
-            return response()->json([
-                'message' => 'Day is over, come back tomorrow'
-            ], 403); // Status forbidden
         }
         return $next($request);
     }

@@ -17,7 +17,14 @@ class OrderBelongsToUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Order::find($request->route('id'))->user_id !== $request->user()->id ){
+        $order = Order::find($request->route('id'));
+
+        if(is_null($order))
+        {
+            abort(404);
+        }
+
+        if($order->user_id !== $request->user()->id ){
             abort(403);
         }
         
