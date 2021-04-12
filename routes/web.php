@@ -3,6 +3,7 @@
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Login;
+use App\Http\Livewire\Order;
 use Illuminate\Http\Request;
 use App\Http\Livewire\Register;
 use App\Http\Livewire\SeatPicker;
@@ -32,6 +33,7 @@ Route::middleware(['guest'])->group(function() {
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/seat-picker', SeatPicker::class)->name('seat-picker');
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
+    Route::get('/order/{id}', Order::class)->middleware('orderBelongsToUser')->name('order');
 });
 
 Route::get('/', Home::class)->name('home');
