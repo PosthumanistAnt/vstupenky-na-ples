@@ -27,9 +27,9 @@ class SeatPicker extends Component
 
     public function seatSelected($seatId)
     {
-        $addedSeat = Seat::find($seatId);
+        $addedSeat = Seat::with('orderItem.order.state')->find($seatId);
 
-        $state = $addedSeat->orderItem->order->orderState->state ?? null;
+        $state = $addedSeat->orderItem->order->state->id ?? 0;
         $forbiddenStates = [1,2];
 
         if(in_array($state, $forbiddenStates)){

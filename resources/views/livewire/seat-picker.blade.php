@@ -218,7 +218,7 @@
                     seatColor = "{{ $seat->seatType->color }}";
                 @endif
 
-                @if( in_array($seat->orderItem->order->orderStatus->state ?? 0, [1,2]) )
+                @if( in_array($seat->orderItem->order->state->id ?? 0, [1,2]) )
                     seatColor = "dimgray";
                     cursor = "not-allowed";
                     canBeOrdered = false;
