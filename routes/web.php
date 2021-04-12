@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Login;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ Route::middleware(['guest'])->group(function() {
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/seat-picker', SeatPicker::class)->name('seat-picker');
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
 });
 
 Route::get('/', Home::class)->name('home');
@@ -76,3 +78,9 @@ Route::get('/order/verify/{id}/{hash}', function (Request $request, $id) {
     $order->save();
     return redirect('/seat-picker')->with('order_verified', 'Objednávka úspěšně potvrzena.');
 })->middleware(['auth', 'signed'])->name('order.verify');
+
+
+// Route::get('/mail', function () {
+//     // Mail::to('mr.troler@seznam.cz')->send(new ReservationConfirmation);
+//     // return view('emails.reservation.confirmation');
+// })->middleware('restrictedByEventTime'); 
