@@ -16,4 +16,7 @@
             @endforeach
         </table>
     </div>
+    <div class="fixed inset-x-0 bottom-1 text-center">
+        <button class="btn btn-secondary" wire:click="seatpicker"> Vybrat vstupenky </button>
+    </div>
 </div>

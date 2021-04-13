@@ -7,6 +7,10 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
+    public function seatpicker()
+    {
+        redirect('seat-picker');
+    }
     public function render()
     {
         return view('livewire.dashboard', [
