@@ -1,4 +1,4 @@
-<div class="w-screen h-full">
+<div class="w-screen h-full mt-36">
     <div class="fixed top-4 w-full">
         @foreach ($messages as $message)
             <div class="mt-4 w-full h-auto flex justify-between items-center bg-yellow-300 text-black" x-data="{ show: true }" x-show="show">
