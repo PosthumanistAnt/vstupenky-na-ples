@@ -14,7 +14,6 @@ class OrderResource extends LeanResource
 
     public static array $searchable = [
         'id',
-        'code',
     ];
 
     public static string $title = 'id';
@@ -32,7 +31,6 @@ class OrderResource extends LeanResource
         return [
             ID::make('id'),
 
-            Text::make('code')->label(__('Code')),
             BelongsTo::make('user')->parent(UserResource::class)->label(__('User')),
             BelongsTo::make('state')->parent(OrderStateResource::class)->label(__('Order state')),
             
