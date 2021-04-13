@@ -283,7 +283,7 @@
             }
 
             if( seatIndex > 7 ) {
-                alert( 'Stůl ' + seatIndex + ' má přiřazených více než 8 vstupenek.');
+                alert( 'Stůl ' + seatIndex + ' má přiřazených více než 8 vstupenek. Kontaktujte administrátora!!!');
                 return;
             }
 
