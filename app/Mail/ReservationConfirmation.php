@@ -41,6 +41,7 @@ class ReservationConfirmation extends Mailable
     public function build()
     {
         return $this->from(Config::get('mail.teacher_email'))
+        ->subject('Potvrzení objednávky')
         ->view('emails.reservation.confirmation');
     }
 }
