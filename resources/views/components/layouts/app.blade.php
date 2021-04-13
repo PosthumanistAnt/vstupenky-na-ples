@@ -26,7 +26,7 @@
     <div class="mt-8 absolute right-0 top-0">
         @auth
             <span class="p-6 text-center text-xl bg-gradient-to-b from-green-900"> {{ Auth::user()->name }} </span>
-            <a href="{{ route('dashboard') }}" class="p-6 text-center text-xl bg-gray-800 hover:bg-gray-700"> Objednávky </a>
+            <a href="{{ route('dashboard') }}" class="p-6 mx-2 text-center text-xl bg-gray-800 hover:bg-gray-700"> Objednávky </a>
         @endauth
 
         @guest
