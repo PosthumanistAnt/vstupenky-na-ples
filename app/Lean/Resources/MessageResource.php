@@ -6,7 +6,6 @@ use Lean\Fields\ID;
 use Lean\Fields\Text;
 use Lean\LeanResource;
 use Lean\Fields\Pikaday;
-use Lean\Fields\Relations\BelongsTo;
 
 class MessageResource extends LeanResource
 {
@@ -34,7 +33,6 @@ class MessageResource extends LeanResource
 
             Text::make('title')->label(__('Title')),
             Text::make('message')->label(__('Message')),
-            BelongsTo::make('messageType')->parent(MessageTypeResource::class)->label(__('Message type')),
 
             Pikaday::make('updated_at')->display('show', 'edit'),
             Pikaday::make('created_at')->disabled()->display('show'),
