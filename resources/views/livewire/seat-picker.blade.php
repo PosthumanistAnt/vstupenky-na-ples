@@ -29,6 +29,41 @@
                     </div>
                 </div>
             </div>
+            <div class="mt-6" x-data="{ open: false }">
+                <button class="p-4 bg-gray-800 hover:bg-gray-700" @click="open = true">Legenda</button>
+                <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open">
+                    <div class="h-auto p-4 mx-2 text-left bg-gray-900 text-white shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg font-medium leading-6 text-center">
+                                Legenda
+                                <p class="text-xs text-gray-900">vypráví, že jednoho dne, se v Minecraftu objeví někdo, kdo jej celý změní, ten někdo o tom ale ještě neví a dny kralování na něho teprve čekají, možná že právě ty, jsi budoucí Minecraftu král !</p>
+                            </h3>
+                
+                            <div class="mt-2">
+                                @foreach ($seatTypes as $seatType)
+                                <p class="text-sm leading-5 text-gray-300">
+                                    Barva 
+                                    @if ( $seatType->color )
+                                        {{ $seatType->color }}
+                                    @else
+                                        !! nenastavená !!, kontaktujte administrátora 
+                                    @endif
+                                    
+                                    stojí: {{ $seatType->price }}Kč
+                                 </p>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="mt-5 sm:mt-6">
+                            <span class="flex w-full rounded-md shadow-sm">
+                                <button @click="open = false" class="inline-flex justify-center w-full p-4 text-white bg-gray-800 hover:bg-gray-700">
+                                Zavřít
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <h2 class="text-3xl text-center tracking-wide my-2"> Nákupní košík </h2>
             <div class="overflow-y-scroll h-2/3 border-gray-800 border-b-2">
             <table class="w-full mt-4">

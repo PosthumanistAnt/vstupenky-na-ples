@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\ReservationConfirmation;
+use App\Models\SeatType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Config;
 
@@ -144,6 +145,7 @@ class SeatPicker extends Component
     {
         return view('livewire.seat-picker', [
             'tables' => Table::with(['seats.seatType', 'seats.orderItem'])->get(),
+            'seatTypes' => SeatType::all(),
             'verification_expire_time' => $this->verificationExpireTime,
         ])
         ->layout('components.layouts.app');
