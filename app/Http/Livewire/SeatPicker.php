@@ -9,10 +9,8 @@ use Livewire\Component;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Hash;
 use App\Mail\ReservationConfirmation;
 use App\Models\SeatType;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Config;
 
 class SeatPicker extends Component
