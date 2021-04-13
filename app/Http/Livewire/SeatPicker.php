@@ -34,11 +34,6 @@ class SeatPicker extends Component
     {
 
         $addedSeat = Seat::with('orderItem.order.state')->find($seatId);
-        // $addedSeat = Seat::with('orderItem.order.state')->find(6);
-
-        // dd(Order::whereHas('orderItems', function (Builder $query) use ($addedSeat) {
-        //     $query->where('id', $addedSeat->id);
-        // })->where('created_at', '<', now()->subHour())->get());
 
         $order = $addedSeat->orderItem->order ?? null;
         
