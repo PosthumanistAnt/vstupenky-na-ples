@@ -22,9 +22,10 @@ class TableLayoutPage extends LeanPage
 
         session()->flash('message', 'změna pozice - ' . $updatedTableAttributes["id"] . ' ' . $updatedTableAttributes["x"] . ' ' . $updatedTableAttributes["y"]);
     }
+
     public static function label(): string
     {
-        return __('TableLayout');
+        return __('Pozice stolů');
     }
 
     public static function icon(): string
