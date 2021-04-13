@@ -46,11 +46,11 @@ class HallResource extends LeanResource
 
     public static function label(): string
     {
-        return __('Hall');
+        return __('Hala');
     }
 
     public static function pluralLabel(): string
     {
-        return __('Halls');
+        return __('Haly');
     }
 }

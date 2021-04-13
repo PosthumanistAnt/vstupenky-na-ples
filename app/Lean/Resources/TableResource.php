@@ -49,11 +49,11 @@ class TableResource extends LeanResource
 
     public static function label(): string
     {
-        return __('Table');
+        return __('Stůl');
     }
 
     public static function pluralLabel(): string
     {
-        return __('Tables');
+        return __('Stoly');
     }
 }

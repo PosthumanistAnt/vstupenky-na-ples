@@ -48,11 +48,11 @@ class UserResource extends LeanResource
 
     public static function label(): string
     {
-        return __('User');
+        return __('Uživatel');
     }
 
     public static function pluralLabel(): string
     {
-        return __('Users');
+        return __('Uživatelé');
     }
 }

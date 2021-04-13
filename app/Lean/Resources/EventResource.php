@@ -45,11 +45,11 @@ class EventResource extends LeanResource
 
     public static function label(): string
     {
-        return __('Event');
+        return __('Ples');
     }
 
     public static function pluralLabel(): string
     {
-        return __('Events');
+        return __('Plesy');
     }
 }

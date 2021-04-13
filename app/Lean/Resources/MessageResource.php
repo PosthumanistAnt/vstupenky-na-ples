@@ -21,9 +21,6 @@ class MessageResource extends LeanResource
     public static int $resultsPerPage = 10;
 
     public static array $lang = [
-        // 'create.submit' => 'Create Message',
-        // 'notifications.created' => 'Message created!',
-        // ...
     ];
 
     public static function fields(): array
@@ -41,11 +38,11 @@ class MessageResource extends LeanResource
 
     public static function label(): string
     {
-        return __('Message');
+        return __('Zpráva');
     }
 
     public static function pluralLabel(): string
     {
-        return __('Messages');
+        return __('Zprávy');
     }
 }

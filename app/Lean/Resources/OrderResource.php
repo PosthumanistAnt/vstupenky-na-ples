@@ -41,11 +41,11 @@ class OrderResource extends LeanResource
 
     public static function label(): string
     {
-        return __('Order');
+        return __('Objednávka');
     }
 
     public static function pluralLabel(): string
     {
-        return __('Orders');
+        return __('Objednávky');
     }
 }

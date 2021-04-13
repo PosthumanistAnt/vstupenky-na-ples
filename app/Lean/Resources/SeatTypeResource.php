@@ -48,11 +48,11 @@ class SeatTypeResource extends LeanResource
 
     public static function label(): string
     {
-        return __('SeatType');
+        return __('VstupenkaTyp');
     }
 
     public static function pluralLabel(): string
     {
-        return __('SeatTypes');
+        return __('VstupenkaTypy');
     }
 }
