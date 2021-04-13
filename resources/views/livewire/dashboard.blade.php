@@ -9,7 +9,15 @@
             @foreach ($orders as $order)
                 <tr class="border-gray-800 border-b">
                     <td class="text-center p-4"> {{ $order->orderItems->sum('seat.seatType.price') }} </td>
-                    <td class="text-center p-4"> {{ __('order_states.' . $order->state->state) }} </td>
+
+                    <td class="text-center p-4"> 
+
+                        @if (($order->state->id ?? 0) === 1 && $order->created_at->addMinutes($verification_expire_time)->isPast())
+                            Objednávce vypršela platnost
+                        @else
+                            {{ __('order_states.' . $order->state->state) }}
+                        @endif
+                    </td>
                     <td class="text-center p-4"> {{ $order->created_at->format('H:i:s d. m. Y') }} </td>
                     <td class="text-center"> <a href="{{ route('order', ['id' => $order->id]) }}" class="p-4 bg-gray-800 hover:bg-gray-700"> Podrobnosti  </a> </td>
                 </tr>
