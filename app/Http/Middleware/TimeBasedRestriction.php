@@ -17,8 +17,8 @@ class TimeBasedRestriction
     public function handle(Request $request, Closure $next)
     {
         // if not reservation, access forbidden
-        if ( \App\Models\Event::orderBy('id', 'DESC')->first()->reservation_end->isPast() ) {
-            return redirect('event-over');
+        if ( \App\Models\Event::orderBy('id', 'DESC')->first()->reservation_end->isPast() || \App\Models\Event::orderBy('id', 'DESC')->first()->reservation_start->isFuture() ) {
+            return redirect('/');
         }
         return $next($request);
     }
