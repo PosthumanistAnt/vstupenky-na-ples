@@ -11,7 +11,7 @@
     <div class="m-5 my-12 mb-28 w-5/6 h-3/4 mx-auto text-xl tracking-wide">
         @if ( $event->reservation_end->isPast() )
             <div class="m-12 mt-28 p-4 bg-red-600 text-4xl text-center font-bold tracking-wider">
-                PLES JIŽ PROBĚHL :(
+                Pokud chcete rezervovat vstupenky, přijďte mezi začátkem a koncem rezervace. 
             </div>
         @endif
         <h1 class="m-5 mb-12 text-4xl text-center font-bold tracking-wide"> Rezervace vstupenek </h1>
