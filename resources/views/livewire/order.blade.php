@@ -2,7 +2,7 @@
     <div class="w-full h-full">
         <h2 class="text-2xl text-center my-8"> Objednávka </h2>
         <table class="w-full p-8">
-            <tr >
+            <tr>
                 <th class="text-xl p-4"> Cena vstupenky </th>
                 <th class="text-xl p-4"> Číslo vstupenky </th>
                 <th class="text-xl p-4"> Typ vstupenky </th>
