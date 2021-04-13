@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Event;
+use App\Models\Message;
 
 class Home extends Component
 {
@@ -16,7 +17,8 @@ class Home extends Component
     public function render()
     {
         return view('livewire.home', [
-            'event' => Event::with('halls')->where('id', '1')->first()
+            'event' => Event::with('halls')->where('id', '1')->first(),
+            'messages' => Message::all(),
         ])->layout('components.layouts.app');
     }        
 }

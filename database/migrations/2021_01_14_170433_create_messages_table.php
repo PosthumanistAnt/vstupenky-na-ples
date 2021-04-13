@@ -17,8 +17,6 @@ class CreateMessagesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('message');
-            $table->unsignedBigInteger('message_type_id');
-            $table->foreign('message_type_id')->references('id')->on('message_types');
             $table->timestamps();
         });
     }

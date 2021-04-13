@@ -25,7 +25,6 @@ class LeanServiceProvider extends ServiceProvider
         Lean::page('home', Pages\HomePage::class);
         Lean::page('tableLayout', Pages\TableLayoutPage::class);
         Lean::resource('users', Resources\UserResource::class);
-        Lean::resource('messageTypes', Resources\MessageTypeResource::class);
         Lean::resource('messages', Resources\MessageResource::class);
         Lean::resource('events', Resources\EventResource::class);
         Lean::resource('halls', Resources\HallResource::class);

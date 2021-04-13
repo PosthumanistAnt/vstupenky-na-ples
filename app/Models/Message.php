@@ -17,12 +17,7 @@ class Message extends Model
     protected $fillable = [
         'title',
         'message',
-        'message_type_id',
     ];
 
     protected $guarded = [];
-
-    public function messageType(){
-        return $this->belongsTo(MessageType::class);
-    }
 }
