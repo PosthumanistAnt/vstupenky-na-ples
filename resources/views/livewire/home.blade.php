@@ -2,9 +2,9 @@
     <div class="fixed top-4 w-full">
         @foreach ($messages as $message)
             <div class="mt-4 w-full h-auto flex justify-between items-center bg-yellow-300 text-black" x-data="{ show: true }" x-show="show">
-                <p class="font-bold text-xl"> {{ $message->title }} </p>
+                <p class="font-bold text-xl px-4"> {{ $message->title }} </p>
                 <p class="text-lg text-center"> {{ $message->message }} </p>
-                <button class="p-4 px-8 m-4 bg-gray-800 hover:bg-gray-900" @click="show = !show"> X </button>
+                <button class="p-4 px-8 m-4 bg-gray-800 hover:bg-gray-900 text-white" @click="show = !show"> X </button>
             </div>
         @endforeach
     </div>
