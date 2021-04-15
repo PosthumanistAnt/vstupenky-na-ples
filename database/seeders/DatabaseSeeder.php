@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $order_state->save();
 
         $this->call([
+            // Uncomment to generate 40 random seats with in 8 tables and their types, hall and event
             SeatSeeder::class,
         ]);
     }
