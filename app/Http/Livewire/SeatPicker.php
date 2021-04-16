@@ -98,6 +98,13 @@ class SeatPicker extends Component
             return false;
         }
 
+	foreach($cart->all() as $selectedSeat) {
+	    if(($selectedSeat->orderItem->order->state->id ?? 0) === 1 && $selectedSeat->orderItem->order->created_at->addMinutes($this->verificationExpireTime)->isFuture()) {
+	        session()->flash('cart_empty', 'Vyskytla se chyba, vstupenku kterou jste si vybrali si již pravděpodobně někdo objednal');
+		return false;
+	    }
+	}
+
         $order_id = (DB::transaction(function() use($cart, $now, $user) {
             $order = new Order;
             $order->user_id = $user->id;
