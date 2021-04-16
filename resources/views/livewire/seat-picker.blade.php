@@ -195,11 +195,11 @@
 
         canvas.on('mouse:up', function (e) {
             panning = false;
-            this.selection = true;
+            
         });
 
         canvas.on('mouse:move', function (e) {
-            if (panning && e && e.e && e.e.altKey === true) {
+            if (panning && e && e.e) {
                 var units = 10;
                 var delta = new fabric.Point(e.e.movementX, e.e.movementY);
                 this.selection = false;
@@ -211,7 +211,7 @@
         canvas.on( 'mouse:wheel', function(opt) {
             var delta = opt.e.deltaY;
             var zoom = canvas.getZoom();
-            zoom *= 0.98 ** delta;
+            zoom *= 0.995 ** delta;
             if (zoom > 5) zoom = 5;
             if (zoom < 0.2) zoom = 0.2;
             canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);

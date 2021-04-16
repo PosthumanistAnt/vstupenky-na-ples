@@ -54,21 +54,21 @@ Route::get('/logout', function(Request $request) {
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+})->middleware(['auth', 'restrictedByEventTime'])->name('verification.notice');
 
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
     return redirect('/seat-picker');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+})->middleware(['auth', 'signed', 'restrictedByEventTime'])->name('verification.verify');
 
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
     return back()->with('message', 'Email byl odeslán!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+})->middleware(['auth', 'throttle:6,1', 'restrictedByEventTime'])->name('verification.send');
 
 Route::get('/order/verify/{id}/{hash}', function (Request $request, $id) {
     $order = $request->user()->orders()->findOrFail($id);
@@ -79,10 +79,4 @@ Route::get('/order/verify/{id}/{hash}', function (Request $request, $id) {
     $order->state_id = 2;
     $order->save();
     return redirect('/seat-picker')->with('order_verified', 'Objednávka úspěšně potvrzena.');
-})->middleware(['auth', 'signed'])->name('order.verify');
-
-
-// Route::get('/mail', function () {
-//     // Mail::to('mr.troler@seznam.cz')->send(new ReservationConfirmation);
-//     // return view('emails.reservation.confirmation');
-// })->middleware('restrictedByEventTime'); 
+})->middleware(['auth', 'signed', 'restrictedByEventTime'])->name('order.verify');
